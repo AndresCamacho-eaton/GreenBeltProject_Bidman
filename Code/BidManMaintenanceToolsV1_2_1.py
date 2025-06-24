@@ -6,6 +6,9 @@ import re
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
     valores iguales. Los renglones en donde una columna tenga valor null o este vacía se consideran también como valores iguales.
 """
+"""
+    Javi Git Masterclass 240625
+"""
 
 """
     290425
@@ -545,6 +548,13 @@ class PrnDoctor:
             This method is intended to optimize the logical rules and tables.
             The optimization process will be implemented in future versions.
         """
+
+        """
+            240625
+            Hoy voy a trabajar sobre la primera aproximación del algoritmo de optimización.
+
+        """
+
         pass
 
     def WritePRN(self, fileName):
