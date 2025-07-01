@@ -549,13 +549,70 @@ class PrnDoctor:
             The optimization process will be implemented in future versions.
         """
 
-        """
-            240625
-            Hoy voy a trabajar sobre la primera aproximación del algoritmo de optimización.
+        def read_table():
+            f = int(input('Ingrese el número de filas: '))
+            c = int(input('Ingrese el número de columnas: '))
 
-        """
+            tabla = []
+            tipoColumna = []
+            tipoDato = []
 
-        pass
+            for j in range(c):
+                if j == c - 1:
+                    tipoColumna.append('output')
+                else:
+                    tipoColumna.append('input')
+                tipoDato.append(input(f'Ingrese el tipo de dato de la columna {j + 1} (ALPHA/NUM/FLOAT): '))
+
+            for i in range(f):
+                row = []
+                for j in range(c):
+                    value = input(f'Ingrese el valor de la fila {i + 1}, columna {j + 1}: ')
+                    row.append(value)
+                tabla.append(row)
+
+            return tabla, tipoColumna, tipoDato, f, c
+
+        def detectar_patrones(tabla, tipoColumna, f, c):
+            outputCol = c - 1
+            print('Filas a optimizar encontradas')
+            for i in range(f):
+                totalCoincidencias = 1
+                for j in range(f):
+                    if i != j:
+                        igualesInputs = True
+                        for x in range(c - 1):
+                            if tipoColumna[x] == 'input':
+                                if tabla[i][x] != tabla[j][x]:
+                                    igualesInputs = False
+                                    break
+                        if igualesInputs:
+                            totalCoincidencias += 1
+
+                if totalCoincidencias >= 2:
+                    valorOutput = tabla[i][outputCol]
+                    esValido = True
+                    for j in range(f):
+                        if i != j:
+                            igualesInputs = True
+                            for x in range(c - 1):
+                                if tipoColumna[x] == 'input':
+                                    if tabla[i][x] != tabla[j][x]:
+                                        igualesInputs = False
+                                        break
+                            if igualesInputs:
+                                if tabla[j][outputCol] != valorOutput:
+                                    esValido = False
+                                    break
+                    if esValido:
+                        print(' '.join(tabla[i]))
+
+        def main():
+            tabla, tipoColumna, tipoDato, f, c = read_table()
+            detectar_patrones(tabla, tipoColumna, f, c)
+
+        main()
+        # pass
 
     def WritePRN(self, fileName):
 
