@@ -607,6 +607,10 @@ class PrnDoctor:
                     if esValido:
                         print(' '.join(tabla[i]))
 
+        def detectar_patrones_v2(tabla, tipoColumna, f, c):
+
+            pass
+
         def main():
             tabla, tipoColumna, tipoDato, f, c = read_table()
             detectar_patrones(tabla, tipoColumna, f, c)
