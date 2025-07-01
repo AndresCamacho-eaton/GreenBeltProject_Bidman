@@ -604,6 +604,9 @@ class PrnDoctor:
                     if esValido:
                         print(' '.join(tabla[i]))
 
+        def fnToCauseConflicts():
+            print("This is only to cause giet conflics")
+
         def main():
             tabla, tipoColumna, tipoDato, f, c = read_table()
             detectar_patrones(tabla, tipoColumna, f, c)
