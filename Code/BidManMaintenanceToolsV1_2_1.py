@@ -1,6 +1,6 @@
 
 import pandas as pd
-import re
+import re, json
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
@@ -355,7 +355,6 @@ class Table:
 # ===================================================================================================
 
 class PrnDoctor:
-
     def __init__(self, file):
 
         self._pathAndNameOfTheFile = file
@@ -536,7 +535,6 @@ class PrnDoctor:
                 tbl.ReadTable(row, delimeters, row.iloc[0][0])
 
             # --- if row.iloc[0].startswith("TYPE"): ------------------------------------------------
-
     # --- def read(self): ---------------------------------------------------------------------------
 
     def OptimizationOne(self):
@@ -546,73 +544,54 @@ class PrnDoctor:
             The optimization process will be implemented in future versions.
         """
 
-        def read_table():
-            f = int(input('Ingrese el número de filas: '))
-            c = int(input('Ingrese el número de columnas: '))
+        print('Enters')
+        self.ReadPRN()
+        """
+            1. Count longitud of typeOfColumn
+            2. Count numbers of times that INPUT string appears
+            3. Multiply number of times INPUT appears times 5
+            4. Add this result to longitud typeOfColumn
+            5. Substract 6 of total longitud to know OUTPUT index
+        """
 
-            tabla = []
-            tipoColumna = []
-            tipoDato = []
-
-            for j in range(c):
-                if j == c - 1:
-                    tipoColumna.append('output')
+        def words_to_letters(words_list):
+            letters_list = []
+            for word in words_list:
+                if not word:
+                    letters_list.append('')
                 else:
-                    tipoColumna.append('input')
-                tipoDato.append(input(f'Ingrese el tipo de dato de la columna {j + 1} (ALPHA/NUM/FLOAT): '))
+                    for letter in word:
+                        letters_list.append(letter)
+            return letters_list
+        
 
-            for i in range(f):
-                row = []
-                for j in range(c):
-                    value = input(f'Ingrese el valor de la fila {i + 1}, columna {j + 1}: ')
-                    row.append(value)
-                tabla.append(row)
+        for table in self.tables:
+            counter = len(table.typeOfColumn)
+            
+            for col in table.typeOfColumn:
+                if(col == 'INPUT'):
+                    counter += 5
 
-            return tabla, tipoColumna, tipoDato, f, c
+            counter -= 6;
+    
+            print("Leng cols ", len(table.typeOfColumn))
+            print("Result of counter: ", counter)
 
-        def detectar_patrones(tabla, tipoColumna, f, c):
-            outputCol = c - 1
-            print('Filas a optimizar encontradas')
-            for i in range(f):
-                totalCoincidencias = 1
-                for j in range(f):
-                    if i != j:
-                        igualesInputs = True
-                        for x in range(c - 1):
-                            if tipoColumna[x] == 'input':
-                                if tabla[i][x] != tabla[j][x]:
-                                    igualesInputs = False
-                                    break
-                        if igualesInputs:
-                            totalCoincidencias += 1
+            for row in table.rows:
+                splitedRow = words_to_letters(row);
+                # print(splitedRow)
+                # print(len(splitedRow))
+                if(len(splitedRow) >= counter):
+                    print(row)
+                    print(splitedRow[counter], "\n")
+                # print("\n",row[counter])
+            # print(table.typeOfColumn[counter])
+            # for col in table.typeOfColumn:
+            #     print(col)
+            
 
-                if totalCoincidencias >= 2:
-                    valorOutput = tabla[i][outputCol]
-                    esValido = True
-                    for j in range(f):
-                        if i != j:
-                            igualesInputs = True
-                            for x in range(c - 1):
-                                if tipoColumna[x] == 'input':
-                                    if tabla[i][x] != tabla[j][x]:
-                                        igualesInputs = False
-                                        break
-                            if igualesInputs:
-                                if tabla[j][outputCol] != valorOutput:
-                                    esValido = False
-                                    break
-                    if esValido:
-                        print(' '.join(tabla[i]))
 
-        def fnToCauseConflicts():
-            print("This is only to cause giet conflics")
 
-        def main():
-            tabla, tipoColumna, tipoDato, f, c = read_table()
-            detectar_patrones(tabla, tipoColumna, f, c)
-
-        main()
-        # pass
 
     def WritePRN(self, fileName):
 

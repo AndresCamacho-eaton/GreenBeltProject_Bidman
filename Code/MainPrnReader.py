@@ -3,10 +3,9 @@
 #import BidManMaintenanceToolsV1_2_0 as BMMT
 
 import BidManMaintenanceToolsV1_2_1 as BMMT
-
-workingFile = \
-BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+# workingFile = \
+# BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+#                "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
 
 """
     TO DO:
@@ -18,7 +17,10 @@ BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\
 
 #print(workingFile.pathAndNameOfTheFile)
 
-workingFile.ReadPRN()
+testOptimization = \
+BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+testOptimization.OptimizationOne()
+# workingFile.ReadPRN()
 
 #print(workingFile.getDelimiters)
 #print(workingFile.logicalRules)
@@ -57,5 +59,5 @@ workingFile.ReadPRN()
 
 #050625
 
-workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out.prn")
+# workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+#                      "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out.prn")
