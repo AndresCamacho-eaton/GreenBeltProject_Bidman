@@ -331,7 +331,10 @@ class Table:
             """
             rules = self.Tokenizer(strRow, " ")
 
-            self.name = rules[1].lstrip()
+            copyOfRules = rules.copy()
+            copyOfRules = [item for item in copyOfRules if item != '']
+    
+            self.name = copyOfRules[1].lstrip()
 
             self.rows.append(rules)
      
@@ -498,7 +501,7 @@ class PrnDoctor:
             # class Tables.            
             if row.iloc[0].startswith("TABLE"):
 
-                # We create an instance of the LogicalRules for each iteration of the for loop.        
+                # We create an instance of the Table object for each iteration of the for loop.        
                 tbl = Table()
 
                 delimeters = self.getDelimiters
@@ -617,6 +620,60 @@ class PrnDoctor:
 
         main()
         # pass
+
+    def EqualTokensDetector(self):
+
+        #print(self.tables)
+
+        # Imprimiendo los atributos del objeto Table.
+
+        """
+            self._name = None
+            self._typeOfTable = None
+            self._typeOfColumn = None
+            self._dataType = None
+            self._columns = []
+            self._rows = []
+        """
+
+        #print(f"Name: {self.tables[0].name}")
+        #print(f"Type of Table: {self.tables[0].typeOfTable}")
+        print("\n")
+        print(f"Type of Column: {self.tables[0].typeOfColumn}")
+        print(f"Columns: {self.tables[0].columns}")
+        print("\n")
+        #print(f"Data Type: {self.tables[0].dataType}")
+        #print(f"Columns: {self.tables[0].columns}")
+        #print(self.tables[0].rows)
+
+        print("----------------")
+        print(len(self.tables[0].typeOfColumn))
+        print("----------------")
+
+        for row in self.tables[0].rows:
+            if len(row) >= len(self.tables[0].typeOfColumn):
+                row[len(self.tables[0].typeOfColumn)] = 'FOUND_POSITION'
+                print(row)
+                
+                #print(len(row))
+                #print(row)
+                #print("***")
+                #print(row[len(self.tables[0].typeOfColumn)-3])
+                #print(row[len(self.tables[0].typeOfColumn)-2])
+                #print(row[len(self.tables[0].typeOfColumn)-1])
+
+
+
+    
+
+        #print("\n")
+
+        #print(f"Name: {self.tables[1].name}")
+        #print(f"Type of Table: {self.tables[1].typeOfTable}")
+        #print(f"Type of Column: {self.tables[1].typeOfColumn}")
+        #print(f"Data Type: {self.tables[1].dataType}")
+        #print(f"Columns: {self.tables[1].columns}")
+        #print(self.tables[1].rows)
 
     def WritePRN(self, fileName):
 
