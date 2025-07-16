@@ -22,6 +22,8 @@ BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
 testOptimization.OptimizationOne()
 # workingFile.ReadPRN()
 
+# workingFile.EqualTokensDetector()
+
 #print(workingFile.getDelimiters)
 #print(workingFile.logicalRules)
 
@@ -59,5 +61,10 @@ testOptimization.OptimizationOne()
 
 #050625
 
+<<<<<<< HEAD
 # workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
 #                      "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out.prn")
+=======
+#workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+#                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out_150725.prn")
+>>>>>>> 5c9a246e0f7bf9c338e891e81bd090af79d931dc

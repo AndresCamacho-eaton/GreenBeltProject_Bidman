@@ -6,6 +6,9 @@ import re, json
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
     valores iguales. Los renglones en donde una columna tenga valor null o este vacía se consideran también como valores iguales.
 """
+"""
+    Javi Git Masterclass 240625
+"""
 
 """
     290425
@@ -328,7 +331,10 @@ class Table:
             """
             rules = self.Tokenizer(strRow, " ")
 
-            self.name = rules[1].lstrip()
+            copyOfRules = rules.copy()
+            copyOfRules = [item for item in copyOfRules if item != '']
+    
+            self.name = copyOfRules[1].lstrip()
 
             self.rows.append(rules)
      
@@ -494,7 +500,7 @@ class PrnDoctor:
             # class Tables.            
             if row.iloc[0].startswith("TABLE"):
 
-                # We create an instance of the LogicalRules for each iteration of the for loop.        
+                # We create an instance of the Table object for each iteration of the for loop.        
                 tbl = Table()
 
                 delimeters = self.getDelimiters

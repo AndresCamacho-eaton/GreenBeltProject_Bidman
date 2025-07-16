@@ -1,0 +1,699 @@
+Line Type	resultant_size	CPT_Selection	CHILD:CLASS^=^BM_Option2^AND^attr^=^$$_C20:qty	ples	contactor_starter_type	CHILD:CLASS^=^BM_Option2^AND^attr^=^$$_T11:qty	enclosure_type	BoxID
+I/O	INPUT	INPUT	INPUT	INPUT	INPUT	INPUT	INPUT	OUTPUT
+TYPE	ALPHA	ALPHA	ALPHA	ALPHA	ALPHA	ALPHA	ALPHA	ALPHA
+Rule	20A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	20A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	30A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	30A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	20	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	60A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	None	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	None	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	10	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	12	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	100A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	9	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	None	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	None	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	4	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	5	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	6	Electrically Held (CN35)	NULL	NEMA 1 - General Purpose	BOX10
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	2	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	3	Electrically Held (CN35)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	30A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	30A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	30A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	30A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	60A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX5
+Rule	60A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX5
+Rule	60A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX5
+Rule	60A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	60A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	100A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	None	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	None	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	None	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	None	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	None	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX4
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 1 - General Purpose	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 3R - Rainproof	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	2	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	3	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	4	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX8
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	6	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	200A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	>0	12	Magnetically Latched (A202)	NULL	NEMA 12 - Dusttight	BOX9
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	*	Electrically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Electrically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C1 - Standard Size CPT, 120V/60HZ,110V 50HZ secondary w/2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 1 - General Purpose	BOX3
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX6
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX6
+Rule	30A	None	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX6
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 3R - Rainproof	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 12 - Dusttight	BOX7
+Rule	30A	C2 - Standard Size CPT, 24V/60HZ secondary with 2 primary & 1 secondary fuse	NULL	*	Mechanically Held (C30CN)	NULL	NEMA 4X - Stainless Steel (304 Grade)	BOX7
