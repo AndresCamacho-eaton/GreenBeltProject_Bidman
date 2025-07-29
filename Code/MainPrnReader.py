@@ -1,8 +1,9 @@
 #import BidManMaintenanceToolsV1.1.0 as BMMT
-
 #import BidManMaintenanceToolsV1_2_0 as BMMT
+#import BidManMaintenanceToolsV1_2_1 as BMMT
+#import BidManMaintenanceToolsV1_3_1 as BMMT
 
-import BidManMaintenanceToolsV1_2_1 as BMMT
+import BidManMaintenanceToolsV1_3_2 as BMMT
 
 #workingFile = \
 #BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
@@ -11,10 +12,10 @@ import BidManMaintenanceToolsV1_2_1 as BMMT
 
 workingFile = \
 BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
 
 """
-    TO DO:
+    TODO
 
     La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
     inputsproofofconcept pero no con el archivo inputs. [Resuelto]
@@ -25,7 +26,7 @@ BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\
 
 workingFile.ReadPRN()
 
-workingFile.EqualTokensDetector()
+#workingFile.EqualTokensDetector()
 
 #print(workingFile.getDelimiters)
 #print(workingFile.logicalRules)
@@ -46,17 +47,22 @@ workingFile.EqualTokensDetector()
 #print(c)
 
 #c = 0
-#for tbl in workingFile.tables:
+for tbl in workingFile.tables:
 
-#    print(tbl.typeOfTable)
-#    print(tbl.columns)
-#    print(tbl.typeOfColumn)
-#    print(tbl.dataType)
-#    print(tbl.name)
-    #print(tbl.rows)
-    #for r in tbl.rows:
-    #    print(r)
-    #print("\n")
+    tbl.BuildTable()
+    print("\n")
+
+#    print(f"Type of table: {tbl.typeOfTable}")
+#    print(f"Columns: {tbl.columns}")
+#    print(f"Type of column: {tbl.typeOfColumn}")
+#    print(f"Data type: {tbl.dataType}")
+#    print(f"Name: {tbl.name}")
+
+#    print("Rows:")
+#    for r in tbl.rows:
+#        print(r)
+    
+#    print("\n")
 
 #    c += 1
 
