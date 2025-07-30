@@ -1,13 +1,10 @@
 
 import pandas as pd
-import re, json
+import re, json, time
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
     valores iguales. Los renglones en donde una columna tenga valor null o este vacía se consideran también como valores iguales.
-"""
-"""
-    Javi Git Masterclass 240625
 """
 
 """
@@ -222,6 +219,7 @@ class Table:
             string = string.partition(delimiter)
                             
             tokens.append(string[0])
+            tokens.append(" ")
             
             string = string[2]
         
@@ -332,8 +330,8 @@ class Table:
             rules = self.Tokenizer(strRow, " ")
 
             copyOfRules = rules.copy()
-            copyOfRules = [item for item in copyOfRules if item != '']
-    
+            copyOfRules = [item for item in copyOfRules if item != '' and item != ' ']
+
             self.name = copyOfRules[1].lstrip()
 
             self.rows.append(rules)
@@ -500,7 +498,7 @@ class PrnDoctor:
             # class Tables.            
             if row.iloc[0].startswith("TABLE"):
 
-                # We create an instance of the Table object for each iteration of the for loop.        
+                # We create an instance of the LogicalRules for each iteration of the for loop.        
                 tbl = Table()
 
                 delimeters = self.getDelimiters
@@ -560,41 +558,45 @@ class PrnDoctor:
             5. Substract 6 of total longitud to know OUTPUT index
         """
 
-        def words_to_letters(words_list):
+        def words_to_letters(words_list, table_name, get_pos):
             letters_list = []
+            pos_found = 0
+
             for word in words_list:
-                if not word:
-                    letters_list.append('')
-                else:
-                    for letter in word:
-                        letters_list.append(letter)
-            return letters_list
-        
+                if word == table_name and get_pos:
+                    pos_found = len(letters_list) + 8
+                    continue
+
+                letters_list.extend(list(word) if word else [''])
+
+            return {"posFound": pos_found, "values": letters_list}
+
 
         for table in self.tables:
-            counter = len(table.typeOfColumn)
-            
-            for col in table.typeOfColumn:
-                if(col == 'INPUT'):
-                    counter += 5
+            print(f"\n\n\n=======================  TABLE: {table.name}   ==================================\n\n\n")
 
-            counter -= 6;
-    
-            print("Leng cols ", len(table.typeOfColumn))
-            print("Result of counter: ", counter)
+            arr_table_cols = [el for el in table.columns if el]
+            pos_output_col = words_to_letters(arr_table_cols, table.name, True)["posFound"]
 
-            for row in table.rows:
-                splitedRow = words_to_letters(row);
-                # print(splitedRow)
-                # print(len(splitedRow))
-                if(len(splitedRow) >= counter):
-                    print(row)
-                    print(splitedRow[counter], "\n")
-                # print("\n",row[counter])
-            # print(table.typeOfColumn[counter])
-            # for col in table.typeOfColumn:
-            #     print(col)
+            outputs = []
+            value_counts = {}
+
+            for index, row in enumerate(table.rows):
+                row_split = words_to_letters(row, table.name, False)["values"]
+                row_split = list(filter(None, row_split))
+
+                if len(row_split) > pos_output_col:
+                    output_value = "".join(row_split[pos_output_col:])
+                    value_counts[output_value] = value_counts.get(output_value, 0) + 1
+                    outputs.append({"rowIndex": index, "value": output_value})
+
+            outputs = [item for item in outputs if value_counts[item["value"]] > 1]
+
+            for el in outputs:
+                rows = [[item for item in rule if item != ' '] for rule in table.rows]
+                print(rows[el["rowIndex"]])
             
+            # time.sleep(2)
 
 
 
