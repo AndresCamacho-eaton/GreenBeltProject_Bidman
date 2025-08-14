@@ -1,14 +1,22 @@
 #import BidManMaintenanceToolsV1.1.0 as BMMT
-
 #import BidManMaintenanceToolsV1_2_0 as BMMT
+#import BidManMaintenanceToolsV1_2_1 as BMMT
+#import BidManMaintenanceToolsV1_3_1 as BMMT
+#import BidManMaintenanceToolsV1_3_2 as BMMT
 
-import BidManMaintenanceToolsV1_2_1 as BMMT
-# workingFile = \
-# BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#                "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+import BidManMaintenanceToolsV1_3_3 as BMMT
+
+#workingFile = \
+#BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+#               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+
+
+workingFile = \
+BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
 
 """
-    TO DO:
+    TODO
 
     La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
     inputsproofofconcept pero no con el archivo inputs. [Resuelto]
@@ -22,7 +30,7 @@ BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
 testOptimization.OptimizationOne()
 # workingFile.ReadPRN()
 
-# workingFile.EqualTokensDetector()
+#workingFile.EqualTokensDetector()
 
 #print(workingFile.getDelimiters)
 #print(workingFile.logicalRules)
@@ -43,28 +51,37 @@ testOptimization.OptimizationOne()
 #print(c)
 
 #c = 0
-#for tbl in workingFile.tables:
+for tbl in workingFile.tables:
 
-#    print(tbl.typeOfTable)
-#    print(tbl.columns)
-#    print(tbl.typeOfColumn)
-#    print(tbl.dataType)
-#    print(tbl.name)
-    #print(tbl.rows)
+    tbl.BuildTable()
+
+    print(f"Type of table: {tbl.typeOfTable}")
+    print(f"Columns: {tbl.columns}")
+    print(f"Type of column: {tbl.typeOfColumn}")
+    print(f"Data type: {tbl.dataType}")
+    print(f"Name: {tbl.name}")
+   
+    print()
+   
+    #print("Rows:")
     #for r in tbl.rows:
     #    print(r)
-    #print("\n")
+   
+    print()
 
-#    c += 1
+    print(f"Table as a DataFrame:\n{tbl.table}\n")
 
-#print(c)
+    print()
+
+    print(f"Columns: {tbl.columns}")
+    print(f"Columns: {tbl.table.columns}")
+
+    print("----------------------")
+
+    print(tbl.table.loc[5,'disconnect'])
+
 
 #050625
 
-<<<<<<< HEAD
-# workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#                      "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out.prn")
-=======
 #workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
 #                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out_150725.prn")
->>>>>>> 5c9a246e0f7bf9c338e891e81bd090af79d931dc

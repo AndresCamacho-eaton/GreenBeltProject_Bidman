@@ -157,6 +157,7 @@ class Table:
         self._typeOfTable = None
         self._typeOfColumn = None
         self._dataType = None
+        self._columnWidths = []
         self._columns = []
         self._rows = []
         
@@ -175,7 +176,11 @@ class Table:
     @property
     def dataType(self):
         return self._dataType            
-    
+
+    @property
+    def columnWidths(self):
+        return self._columnWidths
+
     @property
     def columns(self):
         return self._columns
@@ -199,6 +204,10 @@ class Table:
     @dataType.setter
     def dataType(self, dataType):
         self._dataType = dataType                        
+
+    @columnWidths.setter
+    def columnWidths(self, columnWidths):
+        self._columnWidths = columnWidths
 
     @columns.setter
     def columns(self, columns):
@@ -260,6 +269,8 @@ class Table:
         elif keyword == "HEADING":
 
             columns = ""
+
+            print(f"rowValues: {rowValues}")
             
             for value in rowValues:
                 
@@ -267,13 +278,51 @@ class Table:
                     continue
 
                 columns = value
+
+                print(f"columns: {columns}")
             
             # --- for value in rowValues: -------------------------------------------------------------------
 
             columns = self.Tokenizer(columns, ' ')
 
+            print(f"columns: {columns[2:]}")
+
+            isWord = False
+            lengthOfBlanks = 0
+            lengthOfWord = 0
+            firstWord = True
+
+            for t in columns[2:]:
+
+                if t == '':
+
+                    lengthOfBlanks += 1
+                    isWord = False
+                
+                else:
+
+                    lengthOfWord = len(t)
+                    isWord = True
+
+                if isWord:
+
+                    print(f"lengthOfBlanks: {lengthOfBlanks}, lengthOfWords: {lengthOfWord}")
+                    if firstWord:
+                    
+                        width = lengthOfWord
+                    
+                    else:
+                    
+                        width = lengthOfBlanks + lengthOfWord
+                    
+                    self.columnWidths.append(width)
+                    lengthOfBlanks = 0
+                    firstWord = False
+
             self.columns = columns[2:]
-        
+
+            print(f"columnWidths: {self.columnWidths}")
+
         elif keyword == "I/O":
 
             typesOfColumn = ""
