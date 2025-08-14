@@ -1,6 +1,7 @@
 
 import pandas as pd
 import re, json, time
+from collections import defaultdict
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
@@ -637,15 +638,60 @@ class PrnDoctor:
                 if len(row_split) > pos_output_col:
                     output_value = "".join(row_split[pos_output_col:])
                     value_counts[output_value] = value_counts.get(output_value, 0) + 1
-                    outputs.append({"rowIndex": index, "value": output_value})
+                    outputs.append({"rowIndex": index, "value": output_value, "row": row})
 
             outputs = [item for item in outputs if value_counts[item["value"]] > 1]
-
-            for el in outputs:
-                rows = [[item for item in rule if item != ' '] for rule in table.rows]
-                print(rows[el["rowIndex"]])
+            # print(outputs)
             
-            # time.sleep(2)
+            print("\n\n\n==================== START COMPARING ====================\n\n\n")
+
+            # * Create a dictionary where each key maps to a list.
+            grouped = defaultdict(list)
+
+            # * Each item is expected to be a dictionary with a 'value' key.
+            for item in outputs:
+                grouped[item['value']].append(item)
+
+            # * Find groups that have more than one item
+            repeated_groups = [group for group in grouped.values() if len(group) > 1]
+
+            # * If there are any repeated groups
+            if len(repeated_groups) > 0:
+                # * Enumerate through each repeated group
+                for i, group in enumerate(repeated_groups, start=1):
+                    # print(f"\nRepeated Group {i}:\n")
+                    # * For each item in the group, extract and clean the corresponding row.
+                    for item in group:
+                        # * Access the row in the table using the item's 'rowIndex'.
+                        rowIndex = table.rows[item["rowIndex"]]
+                        
+                        # * Remove empty strings and spaces from the row.
+                        rowIndex = [el for el in rowIndex if el != '']
+                        # print(rowIndex)
+                    
+                    # * Dynamically create a global variable to store the group.
+                    globals()[f'repeated{i}'] = group
+            
+            print(group)
+            # for repeated in group:
+            #     splitedOutputValue = repeated["value"].split()
+            #     row = repeated["row"]
+            #     row = [el for el in row if el != '']
+            #     currentRowIndex = repeated[]
+                
+            #     counterEqualities = 0
+            #     for index, itemRow in enumerate(row):
+            #         if (index + 1) < len(group):
+            #             nextRow = group[index + 1]["row"]
+            #             nextRow = [el for el in nextRow if el != '']
+                        
+            #             print(f"Current Row: {row[57]}")
+            #             print(f"Next Row: {nextRow[57]}")
+                    # print(len(itemRow))
+                    # if(itemRow == row[index + 1])                    
+
+
+ 
 
 
 
