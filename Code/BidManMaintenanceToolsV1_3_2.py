@@ -524,7 +524,161 @@ class Table:
             except IndexError:
 
                 pass
+        # --- for index, r in enumerate(self.rows): -------------------------------------------------
+
+        print("----------------------")
+
+        for c in columns:
+
+            print(c)
             
+        print("----------------------")
+
+        #print("-------------------------------")
+        #print(self._table)
+        #print("-------------------------------")
+        #print(self._table['construct'])
+        #print("===============================")
+
+# ===================================================================================================
+    
+    def BuildTable2(self):
+
+        """
+            TODO Generalizar este algoritmo para que funcione con cualquier tabla.
+        """
+
+        columns = ["HEADING", "Description"]
+
+        for c in self.columns:
+
+            if c != '' and c != ' ':
+
+                columns.append(c)
+
+        self._table = pd.DataFrame(columns=columns)
+
+        for idxr, r in enumerate(self.rows):
+
+            decompRow = [list(item) if item else [''] for item in r]
+            flattenedDecompRow = [char for sublist in decompRow for char in sublist]
+
+            print("-------------------------")
+            print(flattenedDecompRow)
+            print("-------------------------")
+
+            start = 0 # index included
+            end = 8 # index excluded
+            self._table.loc[idxr,"HEADING"] = ''.join(flattenedDecompRow[start:end])
+            #print(f"start: {start}")
+            #print(f"end: {end}")
+            #print(f"flattenedDecompRow: {flattenedDecompRow[start:end]}")
+
+            start = end
+            end = start + 12
+            self._table.loc[idxr,"Description"] = ''.join(flattenedDecompRow[start:end])
+            #print(f"start: {start}")
+            #print(f"end: {end}")
+            #print(f"flattenedDecompRow: {flattenedDecompRow[start:end]}")
+            #print("\n")
+
+            for idxc, c in enumerate(columns[2:]):
+
+                print(f"idxc: {idxc}")
+                print(f"c: {c}")
+                print(f"self.columnWidths: {self.columnWidths}")
+
+                try:
+
+                    start = end
+                    end = start + self.columnWidths[idxc]
+                    print(f"start: {start}")
+                    print(f"end: {end}")
+                    #self._table.loc[idxr,columns[idxc]] = ''.join(flattenedDecompRow[start:end])
+                    print(''.join(flattenedDecompRow[start:end]), end=' ')
+
+                except IndexError:
+
+                    print(''.join(flattenedDecompRow[start:]), end=' ')
+
+                print("\n")
+
+            
+            print("\n")
+
+
+
+
+
+
+#            try:
+
+#                start = end + 1
+#                end = start + self.columnWidths[0]
+#                self._table.loc[index,columns[2]] = ''.join(flattenedDecompRow[start:end])
+
+#            except IndexError:
+
+#                pass
+
+#            try:
+
+#                start = end
+#                end = start + self.columnWidths[1]
+#                self._table.loc[index,columns[3]] = ''.join(flattenedDecompRow[start:end])
+
+#            except IndexError:
+
+#                pass
+
+#            try:
+
+#                start = end
+#                end = start + self.columnWidths[2]
+#                self._table.loc[index,columns[4]] = ''.join(flattenedDecompRow[start:end])
+
+#            except IndexError:
+
+#                pass
+
+#            try:
+
+#                start = end
+#                end = start + self.columnWidths[3]
+#                self._table.loc[index,columns[5]] = ''.join(flattenedDecompRow[start:end])
+
+#            except IndexError:
+
+#                pass
+
+#            try:
+
+#                start = end
+#                end = start + self.columnWidths[4]
+#                self._table.loc[index,columns[6]] = ''.join(flattenedDecompRow[start:end])
+
+#            except IndexError:
+
+#                pass
+
+#            try:
+
+#                start = end
+#                self._table.loc[index,columns[7]] = ''.join(flattenedDecompRow[start:])
+
+#            except IndexError:
+
+#                pass
+        # --- for index, r in enumerate(self.rows): -------------------------------------------------
+
+#        print("----------------------")
+
+#        for c in columns:
+
+#            print(c)
+            
+#        print("----------------------")
+
         #print("-------------------------------")
         #print(self._table)
         #print("-------------------------------")

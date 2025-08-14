@@ -2,8 +2,9 @@
 #import BidManMaintenanceToolsV1_2_0 as BMMT
 #import BidManMaintenanceToolsV1_2_1 as BMMT
 #import BidManMaintenanceToolsV1_3_1 as BMMT
+#import BidManMaintenanceToolsV1_3_2 as BMMT
 
-import BidManMaintenanceToolsV1_3_2 as BMMT
+import BidManMaintenanceToolsV1_3_3 as BMMT
 
 #workingFile = \
 #BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
@@ -50,23 +51,32 @@ workingFile.ReadPRN()
 for tbl in workingFile.tables:
 
     tbl.BuildTable()
-    print("\n")
 
-#    print(f"Type of table: {tbl.typeOfTable}")
-#    print(f"Columns: {tbl.columns}")
-#    print(f"Type of column: {tbl.typeOfColumn}")
-#    print(f"Data type: {tbl.dataType}")
-#    print(f"Name: {tbl.name}")
+    print(f"Type of table: {tbl.typeOfTable}")
+    print(f"Columns: {tbl.columns}")
+    print(f"Type of column: {tbl.typeOfColumn}")
+    print(f"Data type: {tbl.dataType}")
+    print(f"Name: {tbl.name}")
+   
+    print()
+   
+    #print("Rows:")
+    #for r in tbl.rows:
+    #    print(r)
+   
+    print()
 
-#    print("Rows:")
-#    for r in tbl.rows:
-#        print(r)
-    
-#    print("\n")
+    print(f"Table as a DataFrame:\n{tbl.table}\n")
 
-#    c += 1
+    print()
 
-#print(c)
+    print(f"Columns: {tbl.columns}")
+    print(f"Columns: {tbl.table.columns}")
+
+    print("----------------------")
+
+    print(tbl.table.loc[5,'disconnect'])
+
 
 #050625
 
