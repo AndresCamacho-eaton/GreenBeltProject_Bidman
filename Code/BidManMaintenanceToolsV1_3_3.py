@@ -478,32 +478,6 @@ class Table:
             end = 8 # index excluded
             self._table.loc[idxr,"HEADING"] = ''.join(flattenedDecompRow[start:end])
 
-            #start = end
-            #end = start + 12
-
-            # --- 140825 ------------------------------------------------------------------------------
-
-            # Este bloque de código está muy "a modo" No me queda claro por qué sólo se tiene que agregar
-            # un espacio en blanco cuando la longitud de la descripción es menor a 12 caracteres.
-            # Yo esperaría que fueran tres.
-            # Cuando probemos la estrategia para otras tablas quizá aparezca la razón.
-
-            #if len(flattenedDecompRow[start:end]) < 12:
-
-            #    self._table.loc[idxr,"Description"] = ''.join(flattenedDecompRow[start:end]) + " "
-
-            #else:
-
-            #   self._table.loc[idxr,"Description"] = ''.join(flattenedDecompRow[start:end])
-
-            #print(f"Start: {start}, end: {end}")
-            #print(f"Row {idxr} flattenedDecompRow: {flattenedDecompRow[start:end]}")
-            #print(f"Row {idxr} flattenedDecompRow: {flattenedDecompRow}")
-            #print(f"Row {idxr} length: {len(flattenedDecompRow[start:end])}")
-            #print("------------------------------")
-            #print(self.columnWidths)
-            #print("------------------------------")
-
             for idxc, c in enumerate(self.columns):
 
                 try:

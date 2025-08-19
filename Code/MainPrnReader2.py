@@ -2,7 +2,7 @@ import BidManMaintenanceToolsV1_3_3 as BMMT
 
 workingFile = \
 BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+               "ENCLOSC_PRNS\\PRNS\\inputs.prn")
 
 workingFile.ReadPRN()
 
@@ -27,14 +27,14 @@ for tbl in workingFile.tables:
    
     print(f"Table as a DataFrame:\n{tbl.table}\n")
 
-    print("----------------------")
+    #print("----------------------")
 
     # Get a list representation of the column with the output of the table.
-    nameOfTheOutputColumn = tbl.columns[len(tbl.columns) - 1]
-    print(f"Output column name: {nameOfTheOutputColumn}")
-    print(tbl.table[nameOfTheOutputColumn].tolist())
+    #nameOfTheOutputColumn = tbl.columns[len(tbl.columns) - 1]
+    #print(f"Output column name: {nameOfTheOutputColumn}")
+    #print(tbl.table[nameOfTheOutputColumn].tolist())
 
-    print("----------------------")
+    #print("----------------------")
 
 
 #050625
