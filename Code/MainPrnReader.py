@@ -13,7 +13,7 @@ import BidManMaintenanceToolsV1_3_3 as BMMT
 
 workingFile = \
 BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
+               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
 
 """
     TODO
@@ -53,7 +53,15 @@ testOptimization.OptimizationOne()
 #c = 0
 for tbl in workingFile.tables:
 
+    # --- 140825 -------------------------------------------------------------------------
+    
+    # Tables must first be populated line by line while reading the PRN file. Therefore,
+    # the DataFrame representation of the table should be created only after the table
+    # has been fully populated.
+
     tbl.BuildTable()
+    
+    # ------------------------------------------------------------------------------------
 
     print(f"Type of table: {tbl.typeOfTable}")
     print(f"Columns: {tbl.columns}")
@@ -67,18 +75,11 @@ for tbl in workingFile.tables:
     #for r in tbl.rows:
     #    print(r)
    
-    print()
-
     print(f"Table as a DataFrame:\n{tbl.table}\n")
-
-    print()
-
-    print(f"Columns: {tbl.columns}")
-    print(f"Columns: {tbl.table.columns}")
 
     print("----------------------")
 
-    print(tbl.table.loc[5,'disconnect'])
+    #print(tbl.table.loc[5,'disconnect'])
 
 
 #050625

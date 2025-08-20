@@ -302,11 +302,11 @@ class Table:
             widthOfWords = [] 
 
             # --- 140825 ---------------------------------------------
-            # Index 4 skips ['HEADING', ' ', 'Description', ' ', ...]
+            # Index 2 skips ['HEADING', ' ', 'Description', ' ', ...]
             # HEADING and Description are not considered as columns.
             # --------------------------------------------------------
 
-            for t in columns[4:]:
+            for t in columns[2:]:
 
                 if t == '' or t == ' ':
 
@@ -317,13 +317,13 @@ class Table:
                     widthOfBlanks.append(lengthOfBlanks)
                     lengthOfBlanks = 0
 
-            for t in columns[4:]:
+            for t in columns[2:]:
 
                 if t != '' and t != ' ':
 
                     widthOfWords.append(len(t))
 
-            for index, t in enumerate(columns[4:]):
+            for index, t in enumerate(columns[2:]):
 
                 try:
 
@@ -351,7 +351,7 @@ class Table:
             # HEADING and Description are not considered as columns.
             # --------------------------------------------------------
 
-            self.columns = cleanedColumns[2:]
+            self.columns = cleanedColumns[1:]
 
         elif keyword == "I/O":
 
@@ -466,7 +466,7 @@ class Table:
     
     def BuildTable(self):
 
-        columns = ["HEADING", "Description"] + self.columns
+        columns = ["HEADING"] + self.columns
 
         self._table = pd.DataFrame(columns=columns)
 
@@ -479,37 +479,20 @@ class Table:
             end = 8 # index excluded
             self._table.loc[idxr,"HEADING"] = ''.join(flattenedDecompRow[start:end])
 
-            start = end
-            end = start + 12
-
-            # --- 140825 ------------------------------------------------------------------------------
-
-            # Este bloque de código está muy "a modo" No me queda claro por qué sólo se tiene que agregar
-            # un espacio en blanco cuando la longitud de la descripción es menor a 12 caracteres.
-            # Yo esperaría que fueran tres.
-            # Cuando probemos la estrategia para otras tablas quizá aparezca la razón.
-
-            if len(flattenedDecompRow[start:end]) < 12:
-
-                self._table.loc[idxr,"Description"] = ''.join(flattenedDecompRow[start:end]) + " "
-
-            else:
-
-                self._table.loc[idxr,"Description"] = ''.join(flattenedDecompRow[start:end])
-
-            #print(f"Start: {start}, end: {end}")
-            #print(f"Row {idxr} flattenedDecompRow: {flattenedDecompRow[start:end]}")
-            #print(f"Row {idxr} flattenedDecompRow: {flattenedDecompRow}")
-            #print(f"Row {idxr} length: {len(flattenedDecompRow[start:end])}")
-            #print("------------------------------")
-
             for idxc, c in enumerate(self.columns):
 
                 try:
 
                     start = end
                     end = start + self.columnWidths[idxc]
-                    self._table.loc[idxr,self.columns[idxc]] = ''.join(flattenedDecompRow[start:end])
+
+                    if len(flattenedDecompRow[start:end]) < self.columnWidths[idxc]:
+
+                        self._table.loc[idxr,self.columns[idxc]] = ''.join(flattenedDecompRow[start:end]) + " "
+
+                    else:
+
+                        self._table.loc[idxr,self.columns[idxc]] = ''.join(flattenedDecompRow[start:end])
 
                 except IndexError:
 
@@ -669,9 +652,6 @@ class PrnDoctor:
 
                 # row.iloc[0][:10] -> "TABLE TYPE"
                 tbl.ReadTable(row, delimeters, row.iloc[0][:10])
-
-                # We invoke the BuildTable method to prepare the table for further processing.
-                tbl.BuildTable()
 
                 # We then append the Table instance to the list of Tables.
                 self.tables = tbl
