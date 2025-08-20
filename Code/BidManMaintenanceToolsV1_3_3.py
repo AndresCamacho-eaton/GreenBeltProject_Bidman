@@ -1,6 +1,7 @@
 
 import pandas as pd
-import re
+import re, json, time
+from collections import defaultdict
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
@@ -715,74 +716,43 @@ class PrnDoctor:
             The optimization process will be implemented in future versions.
         """
 
-        def read_table():
-            f = int(input('Ingrese el número de filas: '))
-            c = int(input('Ingrese el número de columnas: '))
+        print('Enters')
+        self.ReadPRN()
 
-            tabla = []
-            tipoColumna = []
-            tipoDato = []
 
-            for j in range(c):
-                if j == c - 1:
-                    tipoColumna.append('output')
-                else:
-                    tipoColumna.append('input')
-                tipoDato.append(input(f'Ingrese el tipo de dato de la columna {j + 1} (ALPHA/NUM/FLOAT): '))
+        """
+            1. Count longitud of typeOfColumn
+            2. Count numbers of times that INPUT string appears
+            3. Multiply number of times INPUT appears times 5
+            4. Add this result to longitud typeOfColumn
+            5. Substract 6 of total longitud to know OUTPUT index
+        """
 
-            for i in range(f):
-                row = []
-                for j in range(c):
-                    value = input(f'Ingrese el valor de la fila {i + 1}, columna {j + 1}: ')
-                    row.append(value)
-                tabla.append(row)
 
-            return tabla, tipoColumna, tipoDato, f, c
+        for item in self.tables:
 
-        def detectar_patrones(tabla, tipoColumna, f, c):
-            outputCol = c - 1
-            print('Filas a optimizar encontradas')
-            for i in range(f):
-                totalCoincidencias = 1
-                for j in range(f):
-                    if i != j:
-                        igualesInputs = True
-                        for x in range(c - 1):
-                            if tipoColumna[x] == 'input':
-                                if tabla[i][x] != tabla[j][x]:
-                                    igualesInputs = False
-                                    break
-                        if igualesInputs:
-                            totalCoincidencias += 1
+            item.BuildTable()
+            table = item.table
+            
+            print(f"Type of table: {item.typeOfTable}")
+            print(f"Columns: {item.columns}")
+            print(f"Type of column: {item.typeOfColumn}")
+            print(f"Data type: {item.dataType}")
+            print(f"Name: {item.name}")
+        
+            print(f"Table as a DataFrame:\n{item.table}\n")
 
-                if totalCoincidencias >= 2:
-                    valorOutput = tabla[i][outputCol]
-                    esValido = True
-                    for j in range(f):
-                        if i != j:
-                            igualesInputs = True
-                            for x in range(c - 1):
-                                if tipoColumna[x] == 'input':
-                                    if tabla[i][x] != tabla[j][x]:
-                                        igualesInputs = False
-                                        break
-                            if igualesInputs:
-                                if tabla[j][outputCol] != valorOutput:
-                                    esValido = False
-                                    break
-                    if esValido:
-                        print(' '.join(tabla[i]))
+            print(f"Columns: {item.columns}")
+            print(f"Columns: {item.table.columns}")
 
-        def detectar_patrones_v2(tabla, tipoColumna, f, c):
+            print("----------------------")
 
-            pass
+            duplicatedRows = table[table.duplicated(subset='construct', keep=False)]
+            print(duplicatedRows)
+            # outputs = item.construct.values  # if item.construct is a pandas Series
 
-        def main():
-            tabla, tipoColumna, tipoDato, f, c = read_table()
-            detectar_patrones(tabla, tipoColumna, f, c)
+            # outputs = item.table.loc[2,"construct"]                
 
-        main()
-        # pass
 
     def EqualTokensDetector(self):
 
