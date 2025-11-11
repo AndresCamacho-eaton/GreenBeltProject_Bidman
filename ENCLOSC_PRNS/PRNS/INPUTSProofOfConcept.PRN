@@ -16,6 +16,22 @@ R       construct                                       2                       
 R       construct
 R       construct
 TABLE TYPE: PICK ONE
+HEADING Description country                   BM_LegalEntity construct
+I/O                 INPUT                     INPUT          OUTPUT
+TYPE                ALPHA                     ALPHA          ALPHA
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter2
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter3
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter4
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>1            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   Canadian Enclosed Control 2              @NEMA - Freedom;Soft Starter
+TABLE TYPE: PICK ONE
 HEADING Description            registry construct                            disconnect                      country                   CB_OldSS contactor_starter_type
 I/O                            INPUT    INPUT                                INPUT                           INPUT                     INPUT    OUTPUT
 TYPE                           ALPHA    ALPHA                                ALPHA                           ALPHA                     ALPHA    ALPHA

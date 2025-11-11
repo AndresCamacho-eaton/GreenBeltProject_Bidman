@@ -1,7 +1,7 @@
 
 import pandas as pd
 import re, json, time
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
@@ -690,48 +690,140 @@ class PrnDoctor:
     # --- def read(self): ---------------------------------------------------------------------------
 
     def OptimizationOne(self):
-
         """
-            This method is intended to optimize the logical rules and tables.
-            The optimization process will be implemented in future versions.
+        Optimizes tables by reducing duplicate rows while preserving original order.
+        - Works on grouped logic (construct column).
+        - Replaces block of rows with one reduced row at the original start index.
+        - Keeps HEADING, Description, and last column unchanged.
+        - Generates OR mappings for differing values.
+        Returns:
+            reduced_tables: dict {table_name: optimized DataFrame}
+            global_or_mapping: dict {table_name: {OR_name: [values]}}
         """
-
-        print('Enters')
         self.ReadPRN()
-
-
-        """
-            1. Count longitud of typeOfColumn
-            2. Count numbers of times that INPUT string appears
-            3. Multiply number of times INPUT appears times 5
-            4. Add this result to longitud typeOfColumn
-            5. Substract 6 of total longitud to know OUTPUT index
-        """
-
+        reduced_tables = {}
+        global_or_mapping = {}
 
         for item in self.tables:
-
             item.BuildTable()
             table = item.table
-            
-            print(f"Type of table: {item.typeOfTable}")
-            print(f"Columns: {item.columns}")
-            print(f"Type of column: {item.typeOfColumn}")
-            print(f"Data type: {item.dataType}")
-            print(f"Name: {item.name}")
-        
-            print(f"Table as a DataFrame:\n{item.table}\n")
+            tableName = item.name
+            columns = list(table.columns)
 
-            print(f"Columns: {item.columns}")
-            print(f"Columns: {item.table.columns}")
+            if tableName not in columns:
+                continue
 
-            print("----------------------")
+            # Identify columns to ignore
+            ignore_cols = {'HEADING', 'Description', columns[-1]}
+            compare_cols = [col for col in columns if col not in ignore_cols]
 
-            duplicatedRows = table[table.duplicated(subset='construct', keep=False)]
-            print(duplicatedRows)
-            # outputs = item.construct.values  # if item.construct is a pandas Series
+            # Find duplicates based on 'construct'
+            duplicated_rows = table[table.duplicated(subset=tableName, keep=False)]
+            grouped = duplicated_rows.groupby(tableName)
 
-            # outputs = item.table.loc[2,"construct"]                
+            # Work on a copy to preserve order
+            optimized_table = table.copy()
+            or_mapping = {}
+
+            for _, group in grouped:
+                # Filter out Disabled rows
+                group = group[group['HEADING'].str.strip() != 'D']
+                if group.empty:
+                    continue
+
+                start_idx = group.index.min()  # First index of the group
+                # Build reduced row
+                base_row = group.iloc[0].copy()
+
+                for index, col in enumerate(compare_cols):
+                    unique_vals = group[col].dropna().unique()
+                    if len(unique_vals) > 1:
+                        or_name = f"{col}OrValues{index}"
+                        base_row[col] = or_name
+                        or_mapping[or_name] = list(unique_vals)
+                    else:
+                        base_row[col] = unique_vals[0] if len(unique_vals) > 0 else ''
+
+                # Remove original group rows
+                optimized_table.drop(index=group.index, inplace=True)
+                # Insert reduced row at start index
+                before = optimized_table.loc[:start_idx - 1]
+                after = optimized_table.loc[start_idx:]
+                optimized_table = pd.concat([before, pd.DataFrame([base_row]), after])
+
+            # Reset index for clean output
+            optimized_table.reset_index(drop=True, inplace=True)
+            reduced_tables[item.name] = optimized_table
+            global_or_mapping[item.name] = or_mapping
+
+            print('================================ BEFORE ================================')
+            print(table)
+            print('================================ AFTER ================================')
+            print(optimized_table)
+        return reduced_tables, global_or_mapping
+   
+   
+    # def OptimizationOne(self):
+
+    #     """
+    #         This method is intended to optimize the logical rules and tables.
+    #         The optimization process will be implemented in future versions.
+    #     """
+    #     self.ReadPRN()
+
+
+    #     def analyze_duplicate_rows(table, subset_column='construct'):
+    #         tempTable = table
+    #         # Find all rows that are duplicated based on the subset_column
+    #         duplicated_rows = table[table.duplicated(subset=subset_column, keep=False)]
+    #         # Group duplicated rows by the subset_column
+    #         grouped = duplicated_rows.groupby(subset_column)
+    #         # Initialize a counter to summarize comparisons
+    #         # List to store generated definitions
+    #         definitions = []
+
+    #         # Identify columns to compare (excluding first, second, last, and the subset_column itself)
+    #         all_columns = list(table.columns)
+    #         excluded_indices = { 0, 1 }
+    #         # excluded_indices = {0, 1, len(all_columns) - 1}
+    #         columns_to_compare = [
+    #             col for idx, col in enumerate(all_columns)
+    #             if idx not in excluded_indices and col != subset_column
+    #         ]
+
+
+    #         # Iterate through each group of duplicates
+    #         for _, group in grouped:
+    #             filtered_group = group[group['HEADING'] != 'D ']
+    #             print(filtered_group)
+    #             print("FOREACH COLUMNS")
+    #             for column in filtered_group.columns:
+    #                 value_counts = group[column].value_counts()
+
+    #                 # print(f"Column: {column}")
+    #                 # print(value_counts)
+    #                 # print(f"Group length: {len(filtered_group)}")
+
+    #             print("ENDS GROUP\n\n\n")
+                        
+    #             # print(f"\n\n\nDIFFERENT COLS {different_columns}\n")
+    #             # print(f"EQUAL COLS {equal_columns}\n\n\n")
+
+    #         # Print generated definitions
+    #         # if definitions:
+    #         #     print("Generated Definitions:")
+    #         #     for definition in definitions:
+    #         #         print(definition)
+
+    #     # Use this inside your loop
+    #     for item in self.tables:
+    #         item.BuildTable()
+    #         table = item.table
+    #         print(f"Analyzing table: {item.name}")
+    #         analyze_duplicate_rows(table, subset_column='construct')
+    #         print("----------------------")
+
+                
 
 
     def EqualTokensDetector(self):

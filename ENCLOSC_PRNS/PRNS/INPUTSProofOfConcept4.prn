@@ -29,4 +29,11 @@ R       contactor_starter_type <>BAC    IEC - XT NON-Metallic (32A Max)         
 R       contactor_starter_type <>BAC    Vacuum                                                               USA Enclosed Control               @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Reversing Contactors;Pump Panel;
 R       contactor_starter_type <>BAC    IEC - XT Compact Combination Starter Combination Motor Control (CMC) USA Enclosed Control               @Full Voltage Non-Rev.
 R       contactor_starter_type <>BAC    IEC - XT Compact Combination Starter Combination Motor Control (CMC) Canadian Enclosed Control          @Full Voltage Non-Rev.
-R       contactor_starter_type
+D       contactor_starter_type
+D       contactor_starter_type
+D       contactor_starter_type
+D       contactor_starter_type
+D       contactor_starter_type
+
+
+
