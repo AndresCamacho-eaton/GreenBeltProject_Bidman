@@ -11,22 +11,22 @@ import BidManMaintenanceToolsV1_3_3 as BMMT
 #               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
 
 
-workingFile = \
-BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+# workingFile = \
+# BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
+#                "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
 
-"""
-    TODO
+# """
+#     TODO
 
-    La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
-    inputsproofofconcept pero no con el archivo inputs. [Resuelto]
+#     La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
+#     inputsproofofconcept pero no con el archivo inputs. [Resuelto]
 
-"""
+# """
 
 #print(workingFile.pathAndNameOfTheFile)
 
 testOptimization = \
-BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
 testOptimization.OptimizationOne()
 # workingFile.ReadPRN()
 
@@ -51,35 +51,34 @@ testOptimization.OptimizationOne()
 #print(c)
 
 #c = 0
-for tbl in workingFile.tables:
+# for tbl in workingFile.tables:
 
-    # --- 140825 -------------------------------------------------------------------------
-    
-    # Tables must first be populated line by line while reading the PRN file. Therefore,
-    # the DataFrame representation of the table should be created only after the table
-    # has been fully populated.
+#     tbl.BuildTable()
 
-    tbl.BuildTable()
-    
-    # ------------------------------------------------------------------------------------
-
-    print(f"Type of table: {tbl.typeOfTable}")
-    print(f"Columns: {tbl.columns}")
-    print(f"Type of column: {tbl.typeOfColumn}")
-    print(f"Data type: {tbl.dataType}")
-    print(f"Name: {tbl.name}")
+#     print(f"Type of table: {tbl.typeOfTable}")
+#     print(f"Columns: {tbl.columns}")
+#     print(f"Type of column: {tbl.typeOfColumn}")
+#     print(f"Data type: {tbl.dataType}")
+#     print(f"Name: {tbl.name}")
    
-    print()
+#     print()
    
-    #print("Rows:")
-    #for r in tbl.rows:
-    #    print(r)
+#     #print("Rows:")
+#     #for r in tbl.rows:
+#     #    print(r)
    
-    print(f"Table as a DataFrame:\n{tbl.table}\n")
+#     print()
 
-    print("----------------------")
+#     print(f"Table as a DataFrame:\n{tbl.table}\n")
 
-    #print(tbl.table.loc[5,'disconnect'])
+#     print()
+
+#     print(f"Columns: {tbl.columns}")
+#     print(f"Columns: {tbl.table.columns}")
+
+#     print("----------------------")
+
+#     print(tbl.table.loc[5,'disconnect'])
 
 
 #050625

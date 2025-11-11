@@ -1,0 +1,17 @@
+DEFINE DELIMITER:;
+DEFINE OR:isBlank_0_N=null;Null;NULL;0;None;none
+DEFINE OR:208V_230V_460V=208V;240V;230V;230V 1Ph;460V;480V
+DEFINE OR:Class90-95=90;91;92;93;94;95
+TABLE TYPE: PICK ONE
+HEADING Description registry  country                   BM_LegalEntity disconnect          Caption construct
+I/O                 INPUT     INPUT                     INPUT          INPUT               INPUT   OUTPUT
+TYPE                ALPHA     ALPHA                     ALPHA          ALPHA               ALPHA   ALPHA
+D       construct   ===
+R       construct   BAC       USA Enclosed Control      <>2                                        @NEMA - Freedom;Soft Starter
+R       construct   C-H_Sales USA Enclosed Control      <>2                                        NEMA - Freedom;NEMA - HVAC;IEC - XT Compact Combination Starter;IEC - XT;Lighting;Soft Starter;Vacuum
+R       construct             USA Enclosed Control      <>2                                        NEMA - Freedom;NEMA - HVAC;IEC - XT Compact Combination Starter;IEC - XT;Lighting;Soft Starter;Vacuum
+R       construct             Canadian Enclosed Control                <>Disconnect Switch         @NEMA - Freedom;Lighting;IEC - XT;IEC - XT Compact Combination Starter;Soft Starter;Definite Purpose
+R       construct             Canadian Enclosed Control                Disconnect Switch           @NEMA - Freedom;Lighting;IEC - XT;IEC - XT Compact Combination Starter;Soft Starter
+R       construct                                       2                                  Y       NEMA - Freedom;IEC - XT;Lighting;Soft Starter;Definite Purpose
+R       construct
+R       construct
