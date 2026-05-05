@@ -26,7 +26,7 @@ import BidManMaintenanceToolsV1_3_3 as BMMT
 #print(workingFile.pathAndNameOfTheFile)
 
 testOptimization = \
-BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept2.prn")
+BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
 testOptimization.OptimizationOne()
 # workingFile.ReadPRN()
 

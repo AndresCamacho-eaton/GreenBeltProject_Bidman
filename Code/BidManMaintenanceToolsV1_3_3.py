@@ -436,8 +436,10 @@ class Table:
             #copyOfRules = [item for item in copyOfRules if item != '' and item != ' ']
             copyOfRules = [item for item in copyOfRules if item != '']
     
-            self.name = copyOfRules[2].lstrip()
-
+            try:
+                self.name = copyOfRules[2].lstrip()
+            except:
+                self.name = [f"COULDNOTFINDTABLENAME_{i}" for i in range(1, 500)]
             self.rows.append(rules)
      
     # -----------------------------------------------------------------------------------------------
@@ -704,7 +706,7 @@ class PrnDoctor:
         reduced_tables = {}
         global_or_mapping = {}
 
-        for item in self.tables:
+        for index, item in enumerate(self.tables):
             item.BuildTable()
             table = item.table
             tableName = item.name
@@ -717,7 +719,7 @@ class PrnDoctor:
             ignore_cols = {'HEADING', 'Description', columns[-1]}
             compare_cols = [col for col in columns if col not in ignore_cols]
 
-            # Find duplicates based on 'construct'
+            # Find duplicates
             duplicated_rows = table[table.duplicated(subset=tableName, keep=False)]
             grouped = duplicated_rows.groupby(tableName)
 
@@ -737,6 +739,7 @@ class PrnDoctor:
 
                 for index, col in enumerate(compare_cols):
                     unique_vals = group[col].dropna().unique()
+
                     if len(unique_vals) > 1:
                         or_name = f"{col}OrValues{index}"
                         base_row[col] = or_name
@@ -756,82 +759,16 @@ class PrnDoctor:
             reduced_tables[item.name] = optimized_table
             global_or_mapping[item.name] = or_mapping
 
+            # table.to_csv(f'input{tableName}.csv', index=False)
+            # optimized_table.to_csv(f'output{tableName}.csv', index=False)
             print('================================ BEFORE ================================')
             print(table)
             print('================================ AFTER ================================')
             print(optimized_table)
         return reduced_tables, global_or_mapping
-   
-   
-    # def OptimizationOne(self):
-
-    #     """
-    #         This method is intended to optimize the logical rules and tables.
-    #         The optimization process will be implemented in future versions.
-    #     """
-    #     self.ReadPRN()
-
-
-    #     def analyze_duplicate_rows(table, subset_column='construct'):
-    #         tempTable = table
-    #         # Find all rows that are duplicated based on the subset_column
-    #         duplicated_rows = table[table.duplicated(subset=subset_column, keep=False)]
-    #         # Group duplicated rows by the subset_column
-    #         grouped = duplicated_rows.groupby(subset_column)
-    #         # Initialize a counter to summarize comparisons
-    #         # List to store generated definitions
-    #         definitions = []
-
-    #         # Identify columns to compare (excluding first, second, last, and the subset_column itself)
-    #         all_columns = list(table.columns)
-    #         excluded_indices = { 0, 1 }
-    #         # excluded_indices = {0, 1, len(all_columns) - 1}
-    #         columns_to_compare = [
-    #             col for idx, col in enumerate(all_columns)
-    #             if idx not in excluded_indices and col != subset_column
-    #         ]
-
-
-    #         # Iterate through each group of duplicates
-    #         for _, group in grouped:
-    #             filtered_group = group[group['HEADING'] != 'D ']
-    #             print(filtered_group)
-    #             print("FOREACH COLUMNS")
-    #             for column in filtered_group.columns:
-    #                 value_counts = group[column].value_counts()
-
-    #                 # print(f"Column: {column}")
-    #                 # print(value_counts)
-    #                 # print(f"Group length: {len(filtered_group)}")
-
-    #             print("ENDS GROUP\n\n\n")
-                        
-    #             # print(f"\n\n\nDIFFERENT COLS {different_columns}\n")
-    #             # print(f"EQUAL COLS {equal_columns}\n\n\n")
-
-    #         # Print generated definitions
-    #         # if definitions:
-    #         #     print("Generated Definitions:")
-    #         #     for definition in definitions:
-    #         #         print(definition)
-
-    #     # Use this inside your loop
-    #     for item in self.tables:
-    #         item.BuildTable()
-    #         table = item.table
-    #         print(f"Analyzing table: {item.name}")
-    #         analyze_duplicate_rows(table, subset_column='construct')
-    #         print("----------------------")
-
-                
-
 
     def EqualTokensDetector(self):
-
-        #print(self.tables)
-
         # Imprimiendo los atributos del objeto Table.
-
         """
             self._name = None
             self._typeOfTable = None
@@ -841,15 +778,10 @@ class PrnDoctor:
             self._rows = []
         """
 
-        #print(f"Name: {self.tables[0].name}")
-        #print(f"Type of Table: {self.tables[0].typeOfTable}")
         print("\n")
         print(f"Type of Column: {self.tables[0].typeOfColumn}")
         print(f"Columns: {self.tables[0].columns}")
         print("\n")
-        #print(f"Data Type: {self.tables[0].dataType}")
-        #print(f"Columns: {self.tables[0].columns}")
-        #print(self.tables[0].rows)
 
         print("----------------")
         print(len(self.tables[0].typeOfColumn))
@@ -859,26 +791,6 @@ class PrnDoctor:
             if len(row) >= len(self.tables[0].typeOfColumn):
                 row[len(self.tables[0].typeOfColumn)] = 'FOUND_POSITION'
                 print(row)
-                
-                #print(len(row))
-                #print(row)
-                #print("***")
-                #print(row[len(self.tables[0].typeOfColumn)-3])
-                #print(row[len(self.tables[0].typeOfColumn)-2])
-                #print(row[len(self.tables[0].typeOfColumn)-1])
-
-
-
-    
-
-        #print("\n")
-
-        #print(f"Name: {self.tables[1].name}")
-        #print(f"Type of Table: {self.tables[1].typeOfTable}")
-        #print(f"Type of Column: {self.tables[1].typeOfColumn}")
-        #print(f"Data Type: {self.tables[1].dataType}")
-        #print(f"Columns: {self.tables[1].columns}")
-        #print(self.tables[1].rows)
 
     def WritePRN(self, fileName):
 
