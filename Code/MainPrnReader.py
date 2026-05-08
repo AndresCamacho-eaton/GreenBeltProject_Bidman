@@ -26,8 +26,23 @@ import BidManMaintenanceToolsV1_3_3 as BMMT
 #print(workingFile.pathAndNameOfTheFile)
 
 testOptimization = \
-BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
+BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+print('Reading PRN file . . .')
+testOptimization.ReadPRN()
+# Build all tables
+builtTables = 1
+for i, tbl in enumerate(testOptimization.tables):
+    print(f"Building tables {builtTables}/{len(testOptimization.tables)}")
+    builtTables += 1
+    try:
+        tbl.BuildTable()
+    except Exception as e:
+        print(f"Error building table {i}: {e}")
+output_path = "..\\ENCLOSC_PRNS\\PRNS\\optimized_output.prn"
 testOptimization.OptimizationOne()
+print('Applying changes . . .')
+testOptimization.WritePRN(output_path)
+print('Done!')
 # workingFile.ReadPRN()
 
 #workingFile.EqualTokensDetector()
