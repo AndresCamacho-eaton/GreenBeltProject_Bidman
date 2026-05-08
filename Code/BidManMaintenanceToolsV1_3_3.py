@@ -665,6 +665,7 @@ class PrnDoctor:
         """
         reduced_tables = {}
         global_or_mapping = {}
+        global_or_counter = [0]
 
         for index, item in enumerate(self.tables):
             item.BuildTable()
@@ -695,20 +696,20 @@ class PrnDoctor:
 
                 start_idx = group.index.min()
                 base_row = group.iloc[0].copy()
-
+                
                 for col_index, col in enumerate(compare_cols):
-                    # unique_vals = group[col].dropna().unique()
-                    # print(len(unique_vals))
                     col_data = group[col]
-
+                    
                     if isinstance(col_data, pd.DataFrame):
                         col_data = col_data.iloc[:, 0]
-
+                    
                     col_data = col_data.replace('', pd.NA)
-                    unique_vals = col_data.dropna().unique()
+                    unique_vals = col_data.dropna().apply(lambda x: x.strip() if isinstance(x, str) else x)
+                    unique_vals = unique_vals.replace('', pd.NA).dropna().unique()
 
                     if len(unique_vals) > 1:
-                        or_name = f"{col}OrValues{col_index}"
+                        or_name = f"{col[:4]}_{global_or_counter[0]}"
+                        global_or_counter[0] += 1
                         base_row[col] = or_name
                         or_mapping[or_name] = list(unique_vals)
                     else:
@@ -719,6 +720,12 @@ class PrnDoctor:
                 after = optimized_table.loc[start_idx:]
                 optimized_table = pd.concat([before, pd.DataFrame([base_row]), after])
 
+            for or_name, values in or_mapping.items():
+                new_or = LogicalRules()
+                new_or.variableName = or_name
+                new_or.type = " OR"
+                new_or.listOfValues = values
+                self.logicalRules = new_or
             optimized_table.reset_index(drop=True, inplace=True)
             item.table = optimized_table
             item.rows = []
