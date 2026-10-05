@@ -1,43 +1,27 @@
-import BidManMaintenanceToolsV1_3_3 as BMMT
+import os
+import sys
 
-workingFile = \
-BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputs.prn")
+import BidManMaintenanceToolsV1_4_0 as BMMT
 
-workingFile.ReadPRN()
+# Muestra la estructura de cada tabla de un PRN (sin optimizar nada).
+#   python MainPrnReader2.py [archivo.prn]
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+path = sys.argv[1] if len(sys.argv) > 1 else \
+    os.path.join(HERE, "..", "ENCLOSC_PRNS", "PRNS", "INPUTSProofOfConcept.PRN")
+
+workingFile = BMMT.PrnFile(path)
+
+print(f"ORs: {len(workingFile.ors)}")
 
 for tbl in workingFile.tables:
 
-    # --- 140825 -------------------------------------------------------------------------
-    
-    # Tables must first be populated line by line while reading the PRN file. Therefore,
-    # the DataFrame representation of the table should be created only after the table
-    # has been fully populated.
+    kinds = {}
+    for row in tbl.rows:
+        kinds[row.kind] = kinds.get(row.kind, 0) + 1
 
-    tbl.BuildTable()
-    
-    # ------------------------------------------------------------------------------------
-
-    print(f"Type of table: {tbl.typeOfTable}")
-    print(f"Columns: {tbl.columns}")
-    print(f"Type of column: {tbl.typeOfColumn}")
-    print(f"Data type: {tbl.dataType}")
-    print(f"Name: {tbl.name}")
-   
-   
-    print(f"Table as a DataFrame:\n{tbl.table}\n")
-
-    #print("----------------------")
-
-    # Get a list representation of the column with the output of the table.
-    #nameOfTheOutputColumn = tbl.columns[len(tbl.columns) - 1]
-    #print(f"Output column name: {nameOfTheOutputColumn}")
-    #print(tbl.table[nameOfTheOutputColumn].tolist())
-
-    #print("----------------------")
-
-
-#050625
-
-#workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out_150725.prn")
+    print(f"[{tbl.index}] {tbl.name}  ({tbl.typeOfTable}, línea {tbl.lineNumber})")
+    print(f"    Columns:   {tbl.columns}")
+    print(f"    I/O:       {tbl.io}")
+    print(f"    Data type: {tbl.dataTypes}")
+    print(f"    Rows:      {kinds}")

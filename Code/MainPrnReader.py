@@ -1,102 +1,49 @@
-#import BidManMaintenanceToolsV1.1.0 as BMMT
-#import BidManMaintenanceToolsV1_2_0 as BMMT
-#import BidManMaintenanceToolsV1_2_1 as BMMT
 #import BidManMaintenanceToolsV1_3_1 as BMMT
 #import BidManMaintenanceToolsV1_3_2 as BMMT
+#import BidManMaintenanceToolsV1_3_3 as BMMT
 
-import BidManMaintenanceToolsV1_3_3 as BMMT
+import os
+import sys
 
-#workingFile = \
-#BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
+import BidManMaintenanceToolsV1_4_0 as BMMT
 
+"""
+    Uso:
+        python MainPrnReader.py                         (usa los archivos por defecto de abajo)
+        python MainPrnReader.py entrada.prn salida.prn
 
-# workingFile = \
-# BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#                "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept3.prn")
+    Escribe el PRN optimizado, un reporte <salida>.report.txt, y verifica cada tabla
+    contra la original. No modifica el archivo de entrada.
+"""
 
-# """
-#     TODO
+HERE = os.path.dirname(os.path.abspath(__file__))
+PRNS = os.path.join(HERE, "..", "ENCLOSC_PRNS", "PRNS")
 
-#     La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
-#     inputsproofofconcept pero no con el archivo inputs. [Resuelto]
+inputPath = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PRNS, "INPUTSProofOfConcept.prn")
+outputPath = sys.argv[2] if len(sys.argv) > 2 else os.path.join(PRNS, "optimized_output3.prn")
 
-# """
+print('Reading, optimizing and verifying PRN file . . .')
 
-#print(workingFile.pathAndNameOfTheFile)
+result, report = BMMT.optimizePrn(
+    inputPath,
+    outputPath,
+    reportPath=outputPath + ".report.txt",
+    skipTables=[],              # nombres (Description) o índices de tablas a no tocar
+    optimizePickAll=True,       # en PICK ALL solo se fusionan valores distintos
+    removeDuplicateRules=True,  # PICK ONE: borra reglas idénticas a una regla anterior
+    removeUnusedOrs=False,      # pendiente confirmar si los ORs se usan desde otros archivos
+)
 
-testOptimization = \
-BMMT.PrnDoctor("..\\ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
-print('Reading PRN file . . .')
-testOptimization.ReadPRN()
-# Build all tables
-builtTables = 1
-for i, tbl in enumerate(testOptimization.tables):
-    print(f"Building tables {builtTables}/{len(testOptimization.tables)}")
-    builtTables += 1
-    try:
-        tbl.BuildTable()
-    except Exception as e:
-        print(f"Error building table {i}: {e}")
-output_path = "..\\ENCLOSC_PRNS\\PRNS\\optimized_output.prn"
-testOptimization.OptimizationOne()
-print('Applying changes . . .')
-testOptimization.WritePRN(output_path)
+print(report)
+
+failed = [index for index, _, mismatches in result["verification"] if mismatches]
+if failed:
+    print(f'VERIFICATION FAILED in tables {failed}. Do not use {outputPath}.')
+    sys.exit(1)
+
+if result["inlineLists"]:
+    print(f'{len(result["inlineLists"])} INPUT cells have a value;value list instead of an OR. '
+          f'Do not use {outputPath}.')
+    sys.exit(1)
+
 print('Done!')
-# workingFile.ReadPRN()
-
-#workingFile.EqualTokensDetector()
-
-#print(workingFile.getDelimiters)
-#print(workingFile.logicalRules)
-
-#c = 0
-#for lr in workingFile.logicalRules:
-
-#    print(lr.variableName)
-#    print(lr.type)
-#    print(lr.listOfValues)
-#    print("------------------------------")
-#    c += 1
-
-    #print(lr.variableName)
-    #print(lr.type)
-    #print(lr.listOfValues)
-
-#print(c)
-
-#c = 0
-# for tbl in workingFile.tables:
-
-#     tbl.BuildTable()
-
-#     print(f"Type of table: {tbl.typeOfTable}")
-#     print(f"Columns: {tbl.columns}")
-#     print(f"Type of column: {tbl.typeOfColumn}")
-#     print(f"Data type: {tbl.dataType}")
-#     print(f"Name: {tbl.name}")
-   
-#     print()
-   
-#     #print("Rows:")
-#     #for r in tbl.rows:
-#     #    print(r)
-   
-#     print()
-
-#     print(f"Table as a DataFrame:\n{tbl.table}\n")
-
-#     print()
-
-#     print(f"Columns: {tbl.columns}")
-#     print(f"Columns: {tbl.table.columns}")
-
-#     print("----------------------")
-
-#     print(tbl.table.loc[5,'disconnect'])
-
-
-#050625
-
-#workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-#                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out_150725.prn")

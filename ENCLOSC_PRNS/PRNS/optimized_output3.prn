@@ -2,24 +2,18 @@ DEFINE DELIMITER:;
 DEFINE OR:isBlank_0_N=null;Null;NULL;0;None;none
 DEFINE OR:208V_230V_460V=208V;240V;230V;230V 1Ph;460V;480V
 DEFINE OR:Class90-95=90;91;92;93;94;95
-DEFINE OR:coun_0=USA Enclosed Control;Canadian Enclosed Control
-DEFINE OR:BM_L_1=<>2;<>1;2
-DEFINE OR:cons_2=NEMA - HVAC;IEC - XT Compact Combination Starter
-DEFINE OR:coun_3=USA Enclosed Control;Canadian Enclosed Control
-DEFINE OR:cons_4=IEC - XT;IEC - XT NON-Metallic (32A Max)
-DEFINE OR:coun_5=Canadian Enclosed Control;USA Enclosed Control
-DEFINE OR:disc_6=Circuit Breaker;<>None
+DEFINE OR:OR:country_1=USA Enclosed Control;Canadian Enclosed Control
 TABLE TYPE: PICK ONE
 HEADING Description registry  country                   BM_LegalEntity disconnect          Caption construct
 I/O                 INPUT     INPUT                     INPUT          INPUT               INPUT   OUTPUT
 TYPE                ALPHA     ALPHA                     ALPHA          ALPHA               ALPHA   ALPHA
-D       construct   ===                                                                            
+D       construct   ===
 R       construct   BAC       USA Enclosed Control      <>2                                        @NEMA - Freedom;Soft Starter
-R       construct   C-H_Sales USA Enclosed Control      <>2                                        NEMA - Freedom;NEMA - HVAC;IEC - XT Compact Combination Starter;IEC - XT;Lighting;Soft Starter;Vacuum
+R       construct             USA Enclosed Control      <>2                                        NEMA - Freedom;NEMA - HVAC;IEC - XT Compact Combination Starter;IEC - XT;Lighting;Soft Starter;Vacuum
 R       construct             Canadian Enclosed Control                <>Disconnect Switch         @NEMA - Freedom;Lighting;IEC - XT;IEC - XT Compact Combination Starter;Soft Starter;Definite Purpose
 R       construct             Canadian Enclosed Control                Disconnect Switch           @NEMA - Freedom;Lighting;IEC - XT;IEC - XT Compact Combination Starter;Soft Starter
 R       construct                                       2                                  Y       NEMA - Freedom;IEC - XT;Lighting;Soft Starter;Definite Purpose
-R       construct                                                                                  
+R       construct
 TABLE TYPE: PICK ONE
 HEADING Description country                   BM_LegalEntity construct
 I/O                 INPUT                     INPUT          OUTPUT
@@ -27,27 +21,32 @@ TYPE                ALPHA                     ALPHA          ALPHA
 R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter2
 R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter3
 R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter4
-R       construct   coun_0                    BM_L_1         @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>2            @NEMA - Freedom;Soft Starter
+R       construct   USA Enclosed Control      <>1            @NEMA - Freedom;Soft Starter
+R       construct   Canadian Enclosed Control 2              @NEMA - Freedom;Soft Starter
 TABLE TYPE: PICK ONE
 HEADING Description            registry construct                            disconnect                      country                   CB_OldSS contactor_starter_type
 I/O                            INPUT    INPUT                                INPUT                           INPUT                     INPUT    OUTPUT
 TYPE                           ALPHA    ALPHA                                ALPHA                           ALPHA                     ALPHA    ALPHA
-D       contactor_starter_type ===BOTH                                                                                                          
+D       contactor_starter_type ===BOTH
 R       contactor_starter_type BAC      NEMA - Freedom                                                                                          @Full Voltage Non-Rev.;Full Voltage Reversing;Multispeed 2s2w;Multispeed 2s1w CT or VT;
-R       contactor_starter_type <>BAC    cons_2                               Combination Motor Control (CMC) coun_3                             @Full Voltage Non-Rev.
+R       contactor_starter_type <>BAC    NEMA - HVAC                                                                                             @Full Voltage Non-Rev.
 R       contactor_starter_type <>BAC    Soft Starter                                                                                   Y        S611 Soft Starter;S801 Soft Starter;S811 Soft Starter;IT Soft Starters;
 R       contactor_starter_type <>BAC    Soft Starter                                                                                   <>Y      S611 Soft Starter;S801 Soft Starter;S811 Soft Starter;
-D       contactor_starter_type ===CAN                                                                                                           
+D       contactor_starter_type ===CAN
 R       contactor_starter_type <>BAC    DP                                   None                            Canadian Enclosed Control          @Contactors;Single-Phase Starter Common Control;Three-Phase Starter Common Control;Single-Phase Starter Separate Control;Three-Phase Starter Separate Control;
 R       contactor_starter_type <>BAC    LC                                                                   Canadian Enclosed Control          Electrically Held (CN35);Magnetically Latched (A202);Electrically Held (C30CN);Mechanically Held (C30CN);Electrically Held (XT);
-R       contactor_starter_type <>BAC    NEMA - Freedom                       disc_6                          Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Multispeed 2s2w;Multispeed 2s1w CT or VT;Multispeed 2s1w CH;Autotransformer;Part Winding;Wye Delta (Open);
 R       contactor_starter_type <>BAC    NEMA - Freedom                       None                            Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Reversing Contactors;Multispeed 2s2w;Multispeed 2s1w CT or VT;Multispeed 2s1w CH;Autotransformer;Part Winding;Wye Delta (Open);
-R       contactor_starter_type <>BAC    cons_4                               Combination Motor Control (CMC) coun_5                             @Full Voltage Non-Rev.;Full Voltage Reversing;
+R       contactor_starter_type <>BAC    NEMA - Freedom                       <>None                          Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Multispeed 2s2w;Multispeed 2s1w CT or VT;Multispeed 2s1w CH;Autotransformer;Part Winding;Wye Delta (Open);
+R       contactor_starter_type <>BAC    IEC - XT                             Combination Motor Control (CMC) Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;
 R       contactor_starter_type <>BAC    IEC - XT                             None                            Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Reversing Contactors;Multispeed 2s2w;Multispeed 2s1w CT or VT;Wye Delta (Open);
 R       contactor_starter_type <>BAC    IEC - XT                             <>None                          Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;Multispeed 2s2w;Multispeed 2s1w CT or VT;Wye Delta (Open);
-D       contactor_starter_type ===USA                                                                                                           
+R       contactor_starter_type <>BAC    IEC - XT NON-Metallic (32A Max)                                      Canadian Enclosed Control          @Full Voltage Non-Rev.;Full Voltage Reversing;
+D       contactor_starter_type ===USA
 R       contactor_starter_type <>BAC    LC                                                                   USA Enclosed Control               Electrically Held (CN35);Magnetically Latched (A202);Electrically Held (C30CN);Mechanically Held (C30CN);
 R       contactor_starter_type <>BAC    NEMA - Freedom                                                       USA Enclosed Control               @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Reversing Contactors;Multispeed 2s2w;Multispeed 2s1w CT or VT;Multispeed 2s1w CH;Autotransformer;Part Winding;Wye Delta (Open);Wye Delta (Closed);Duplex;Pump Panel;
+R       contactor_starter_type <>BAC    IEC - XT                                                             USA Enclosed Control               @Full Voltage Non-Rev.;Full Voltage Reversing;
 R       contactor_starter_type <>BAC    IEC - XT NON-Metallic (32A Max)                                      USA Enclosed Control               @Full Voltage Non-Rev.;Contactors
 R       contactor_starter_type <>BAC    Vacuum                                                               USA Enclosed Control               @Full Voltage Non-Rev.;Full Voltage Reversing;Contactors;Reversing Contactors;Pump Panel;
-R       contactor_starter_type                                                                                                                  
+R       contactor_starter_type <>BAC    IEC - XT Compact Combination Starter Combination Motor Control (CMC) OR:country_1                       @Full Voltage Non-Rev.
+R       contactor_starter_type

@@ -26,6 +26,7 @@ from collections import defaultdict, Counter
 
     La segunda columna, típicamente contiene el nombre de la tabla debajo de el nombre de columna description
 
+    
     Dentro de una tabla las columnas están separadas por n espacios en blanco, donde n está determinado por el valor más largo de columna
 
     Los primeros cuatro renglones de toda tabla contienen la misma estructura, a saber:
@@ -244,22 +245,21 @@ class Table:
     # -----------------------------------------------------------------------------------------------
 
     def ReadTable(self, row, delimeters, keyword):
-
+ 
         rowValues = row.values
+        non_nan_chunks = [str(v) for v in rowValues if not pd.isna(v)]
         strRow = ""
-
-        for rowValue in rowValues:
-            strRow += str(rowValue)
-
+        for i, chunk in enumerate(non_nan_chunks):
+            strRow += chunk.ljust(500) if i < len(non_nan_chunks) - 1 else chunk
         strRow = self.RemoveTrash(strRow, 'nan')
-
+ 
         if keyword == "TABLE TYPE":
-
+ 
             tokens = self.Tokenizer(strRow, delimeters[0])
             self.typeOfTable = tokens[2].lstrip()
-
+ 
         elif keyword == "HEADING":
-
+ 
             # --- FIX 140825 -----------------------------------------------------------------------
             # Previous approach: tokenize on single spaces and count blank tokens to infer widths.
             # Problem: consecutive-space runs are compressed differently by Tokenizer, making the
@@ -269,108 +269,106 @@ class Table:
             # string. Since PRN is a fixed-width format, those positions are the exact byte offsets
             # where each column's data starts in every rule row.
             # --------------------------------------------------------------------------------------
-
+ 
+            # --- FIX: pad each 500-char chunk to its full width before concatenating so that
+            # spacing at chunk boundaries is preserved for long HEADING lines.
+            non_nan = [str(v) for v in rowValues if not pd.isna(v)]
             raw_heading = ""
-            for value in rowValues:
-                if pd.isna(value):
-                    continue
-                raw_heading += value
+            for i, chunk in enumerate(non_nan):
+                raw_heading += chunk.ljust(500) if i < len(non_nan) - 1 else chunk
             self._rawHeading = raw_heading
-
+ 
             # Find all non-whitespace words and their start positions in the HEADING line.
-            #   col_matches[0] = "HEADING"       ← row-type label, skip
-            #   col_matches[1] = "Description"   ← marks where data starts in rule rows
+            #   col_matches[0] = "HEADING"       <- row-type label, skip
+            #   col_matches[1] = "Description"   <- marks where data starts in rule rows
             #   col_matches[2+] = business columns
             col_matches = list(re.finditer(r'\S+', raw_heading))
-
+ 
             if len(col_matches) > 1:
                 self._descriptionStart = col_matches[1].start()
-
+ 
             # Width of column i = start_position(i+1) - start_position(i).
             # No entry for the last column; BuildTable catches the IndexError and slices to end.
             self._columnWidths = [
                 col_matches[i + 1].start() - col_matches[i].start()
                 for i in range(1, len(col_matches) - 1)
             ]
-
+ 
             # Column names from "Description" onwards (index 1).
             self._columns = [m.group() for m in col_matches[1:]]
-
+ 
         elif keyword == "I/O":
+ 
+            # --- FIX: pad each 500-char chunk before concatenating to preserve column spacing.
+            non_nan = [str(v) for v in rowValues if not pd.isna(v)]
             raw_io = ""
-            typesOfColumn = ""
-
-            for value in rowValues:
-                raw_io += str(value)
-                if pd.isna(value):
-                    continue
-                typesOfColumn = value
-
+            for i, chunk in enumerate(non_nan):
+                raw_io += chunk.ljust(500) if i < len(non_nan) - 1 else chunk
             self._rawIO = self.RemoveTrash(raw_io, 'nan')
+ 
+            typesOfColumn = non_nan[-1] if non_nan else ""
             typesOfColumn = self.Tokenizer(typesOfColumn, ' ')
-
+ 
             cleanedTypesOfColumn = []
             for c in typesOfColumn:
                 if c != '' and c != ' ':
                     cleanedTypesOfColumn.append(c)
-
+ 
             self.typeOfColumn = cleanedTypesOfColumn[1:]
         
         elif keyword == "TYPE":
+ 
+            # --- FIX: pad each 500-char chunk before concatenating to preserve column spacing.
+            non_nan = [str(v) for v in rowValues if not pd.isna(v)]
             raw_type = ""
-            dataTypes = ""
-            
-            for value in rowValues:
-                raw_type += str(value)
-                if pd.isna(value):
-                    continue
-                dataTypes = value
-
+            for i, chunk in enumerate(non_nan):
+                raw_type += chunk.ljust(500) if i < len(non_nan) - 1 else chunk
             self._rawType = self.RemoveTrash(raw_type, 'nan')
+ 
+            dataTypes = non_nan[-1] if non_nan else ""
             dataTypes = self.Tokenizer(dataTypes, ' ')
-
+ 
             cleanedDataTypes = []
             for c in dataTypes:
                 if c != '' and c != ' ':
                     cleanedDataTypes.append(c)
-
+ 
             self.dataType = cleanedDataTypes[1:]
-
+ 
         elif keyword == "R" or keyword == "D" or keyword == "C":
-
+ 
             """
             180525
             
             + El último elemento de la lista de tokens contendrá el valor de la columna output y será tokeniz-
               ado utilizando el delimitador ; para obtener la lista de valores permitidos para la columna.
-
+ 
             """
-
+ 
             """
             050625 / FIX
-
+ 
             Previous approach: tokenize strRow, flatten all characters into a list, then slice
             by character position. Problem: Table.Tokenizer compresses consecutive spaces (when
             the left side of a split is empty, the space delimiter is NOT appended), so the
             flattened array is shorter than the original string — position-based slicing breaks.
-
+ 
             New approach: store the RAW string. BuildTable slices it directly using the character
             positions derived from the HEADING line. Tokenization is only used here to extract
             the table name (copyOfRules[2]).
-
+ 
             """
-
+ 
             rules = self.Tokenizer(strRow, " ")
             copyOfRules = [item for item in rules if item != '']
-
+ 
             try:
                 self.name = copyOfRules[2].lstrip()
             except:
                 self.name = "COULDNOTFINDTABLENAME"
-
+ 
             # Store the raw string for position-based slicing in BuildTable.
             self.rows.append(strRow)
-     
     # -----------------------------------------------------------------------------------------------
 
     def WriteTable(self, fileHandler):
@@ -567,6 +565,15 @@ class PrnDoctor:
     
     # --- def Tokenizer(string,delimiter): ----------------------------------------------------------
 
+    def _find_existing_or(self, values):
+        target = set(values)
+        for rule in self._logicalRules:
+            if set(rule.listOfValues) == target:
+                return rule.variableName
+        return None
+    
+    # --- def find_existing_or(self, values): ----------------------------------------------------------
+
     def RemoveTrash(self, strToBeCleaned, trash):
 
         return re.sub(trash, '', strToBeCleaned)
@@ -575,6 +582,8 @@ class PrnDoctor:
 
     def ReadPRN(self):
     
+
+
         for index, row in self._fileHandler.iterrows():
 
             # FIX: old guard was `pd.isna(row.iloc[0]) or index == 0`.
@@ -589,6 +598,11 @@ class PrnDoctor:
             # We now skip it explicitly by content, not by position.
 
             first_val = row.iloc[0]
+
+            if first_val.startswith("#") or first_val.startswith(" #"):
+                tbl.ReadTable(row, delimeters, "C")
+                continue
+
 
             if pd.isna(first_val) or (isinstance(first_val, str) and first_val.strip() == ''):
                 continue
@@ -652,7 +666,7 @@ class PrnDoctor:
 
     # --- def read(self): ---------------------------------------------------------------------------
 
-    def OptimizationOne(self):
+    def OptimizationOne(self, skip_tables=None):
         """
         Optimizes tables by reducing duplicate rows while preserving original order.
         - Works on grouped logic (construct column).
@@ -663,89 +677,199 @@ class PrnDoctor:
             reduced_tables: dict {table_name: optimized DataFrame}
             global_or_mapping: dict {table_name: {OR_name: [values]}}
         """
+        if skip_tables is None:
+            print('SKIPPING TABLES?????')
+            skip_tables = []
+
         reduced_tables = {}
         global_or_mapping = {}
         global_or_counter = [0]
+        builtTables = 1
 
         for index, item in enumerate(self.tables):
-            item.BuildTable()
+            
+            if item.name in skip_tables:
+                print(f'Skipping {item.name}')
+                continue
+            
+            try:
+                item.BuildTable()
+                print(f"Building table {item.name} {builtTables}/{len(self.tables)}")
+                builtTables += 1
+            except Exception as e:
+                print(f"Error building table {i}: {e}")
             table = item.table
-            tableName = item.name
             columns = list(table.columns)
 
-            if tableName not in columns:
-                continue
+            output_cols = [
+                col for col, io in zip(item.columns, item.typeOfColumn or []) 
+                if io.strip().upper() == 'OUTPUT'
+            ]
 
-            # Identify columns to ignore
+            # * Only optimize if table has 1 OUTPUT COLUMN
+            if len(output_cols) != 1:
+                continue
+            output_col = output_cols[0]
+
+            # * Remove disabled rows globally
+            table = table[table['HEADING'].str.strip() != 'D'].reset_index(drop=True)
+
+            # * Identify columns to ignore
             ignore_cols = {'HEADING', 'Description', columns[-1]}
             compare_cols = [col for col in columns if col not in ignore_cols]
 
-            # Find duplicates
-            duplicated_rows = table[table.duplicated(subset=tableName, keep=False)]
-            grouped = duplicated_rows.groupby(tableName)
-
-            # Work on a copy to preserve order
+            # * Find rows with duplicate OUTPUT values
+            duplicated_rows = table[table.duplicated(subset=output_col, keep=False)]
+            grouped = duplicated_rows.groupby(output_col, dropna=False)
+            
+            # * Work on a copy to preserve order
             optimized_table = table.copy()
+            optimized_table = optimized_table[optimized_table['HEADING'].str.strip() != 'D']
             or_mapping = {}
 
-            for _, group in grouped:
-                # Filter out Disabled rows
+            # * Compute one merged base_row per unique OUTPUT value
+            merged_rows = {}
+
+            for output_val, group in grouped:
                 group = group[group['HEADING'].str.strip() != 'D']
                 if group.empty:
                     continue
-
-                start_idx = group.index.min()
-                base_row = group.iloc[0].copy()
                 
+                base_row = group.iloc[0].copy()
+
                 for col_index, col in enumerate(compare_cols):
                     col_data = group[col]
-                    
                     if isinstance(col_data, pd.DataFrame):
                         col_data = col_data.iloc[:, 0]
-                    
+
                     col_data = col_data.replace('', pd.NA)
                     unique_vals = col_data.dropna().apply(lambda x: x.strip() if isinstance(x, str) else x)
                     unique_vals = unique_vals.replace('', pd.NA).dropna().unique()
 
                     if len(unique_vals) > 1:
-                        or_name = f"{col[:4]}_{global_or_counter[0]}"
-                        global_or_counter[0] += 1
-                        base_row[col] = or_name
-                        or_mapping[or_name] = list(unique_vals)
+                        existing = self._find_existing_or(unique_vals)
+                        if existing:
+                            base_row[col] = existing
+                        else:
+                            try:
+                                col_pos = item.columns.index(col)
+                                max_len = item._columnWidths[col_pos]
+                            except(ValueError, IndexError):
+                                max_len = 20
+                                or_name = f"{col[:4]}_{global_or_counter[0]}"[:max(max_len,4)]
+                                global_or_counter[0] += 1
+                                base_row[col] = or_name
+                                or_mapping[or_name] = list(unique_vals)
+
                     else:
                         base_row[col] = unique_vals[0] if len(unique_vals) > 0 else ''
+                    merged_rows[str(output_val).strip()] = base_row
 
-                optimized_table.drop(index=group.index, inplace=True)
-                before = optimized_table.loc[:start_idx - 1]
-                after = optimized_table.loc[start_idx:]
-                optimized_table = pd.concat([before, pd.DataFrame([base_row]), after])
+                seen = set()
+                new_rows = []
+                for _,row in table.iterrows():
+                    key = str(row[output_col]).strip()
+                    if key in merged_rows:
+                        if key not in seen:
+                            seen.add(key)
+                            new_rows.append(merged_rows[key])
+                    else:
+                        new_rows.append(row)
 
-            for or_name, values in or_mapping.items():
-                new_or = LogicalRules()
-                new_or.variableName = or_name
-                new_or.type = " OR"
-                new_or.listOfValues = values
-                self.logicalRules = new_or
-            optimized_table.reset_index(drop=True, inplace=True)
-            item.table = optimized_table
-            item.rows = []
-            for _, df_row in optimized_table.iterrows():
-                raw = str(df_row['HEADING']).ljust(item._descriptionStart)
-                for col_idx, col in enumerate(item.columns):
-                    val = '' if pd.isna(df_row[col]) else str(df_row[col])
-                    try:
-                        raw += val.ljust(item._columnWidths[col_idx])
-                    except IndexError:
-                        raw += val
-                item.rows.append(raw)
+                optimized_table = pd.DataFrame(
+                    new_rows, columns=table.columns
+                ).reset_index(drop=True)
+
+                for or_name, values in or_mapping.items():
+                    new_or = LogicalRules()
+                    new_or.variableName = or_name
+                    new_or.type = " OR"
+                    new_or.listOfValues = values
+                    self.logicalRules = new_or
+
+                item.table = optimized_table
+                item.rows = []
+
+                for _, df_row in optimized_table.iterrows():
+                    raw = str(df_row['HEADING']).ljust(item._descriptionStart)
+                    for col_idx, col in enumerate(item.columns):
+                        val = str(df_row[col] if not pd.isna(df_row[col]) else '')
+                        val = '' if val.strip().lower() == 'nan' else val
+                        try:
+                            raw += val.ljust(item._columnWidths[col_idx])
+                        except(IndexError):
+                            raw += val
+                        item.rows.append(raw)
             reduced_tables[item.name] = optimized_table
             global_or_mapping[item.name] = or_mapping
 
-            # print('================================ BEFORE ================================')
-            # print(table)
-            # print('================================ AFTER ================================')
-            # print(optimized_table)
-        return reduced_tables, global_or_mapping
+            return reduced_tables, global_or_mapping
+            
+            
+        #     for _, group in grouped:
+        #         # Filter out Disabled rows
+        #         group = group[group['HEADING'].str.strip() != 'D']
+        #         if group.empty:
+        #             continue
+
+        #         start_idx = group.index.min()
+        #         base_row = group.iloc[0].copy()
+                
+        #         for col in compare_cols:
+        #             col_data = group[col]
+                    
+        #             if isinstance(col_data, pd.DataFrame):
+        #                 col_data = col_data.iloc[:, 0]
+                    
+        #             col_data = col_data.replace('', pd.NA)
+        #             unique_vals = col_data.dropna().apply(lambda x: x.strip() if isinstance(x, str) else x)
+        #             unique_vals = unique_vals.replace('', pd.NA).dropna().unique()
+
+        #             if len(unique_vals) > 1:
+        #                 existing = self._find_existing_or(unique_vals)
+        #                 if existing:
+        #                     base_row[col] = existing
+        #                 else:
+        #                     or_name = f"{col[:4]}_{global_or_counter[0]}"
+        #                     global_or_counter[0] += 1
+        #                     base_row[col] = or_name
+        #                     or_mapping[or_name] = list(unique_vals)                    
+        #             else:
+        #                 base_row[col] = unique_vals[0] if len(unique_vals) > 0 else ''
+
+        #         optimized_table.drop(index=group.index, inplace=True)
+        #         before = optimized_table.loc[:start_idx - 1]
+        #         after = optimized_table.loc[start_idx:]
+        #         optimized_table = pd.concat([before, pd.DataFrame([base_row]), after])
+
+        #     for or_name, values in or_mapping.items():
+        #         new_or = LogicalRules()
+        #         new_or.variableName = or_name
+        #         new_or.type = " OR"
+        #         new_or.listOfValues = values
+        #         self.logicalRules = new_or
+        #     optimized_table.reset_index(drop=True, inplace=True)
+        #     item.table = optimized_table
+        #     item.rows = []
+        #     for _, df_row in optimized_table.iterrows():
+        #         raw = str(df_row['HEADING']).ljust(item._descriptionStart)
+        #         for col_idx, col in enumerate(item.columns):
+        #             val = str(df_row[col]) if not pd.isna(df_row[col]) else ''
+        #             val = '' if val.strip().lower() == 'nan' else val
+        #             raw = str(df_row['HEADING']).ljust(item._descriptionStart)
+        #             for col_idx, col in enumerate(item.columns):
+        #                 val = str(df_row[col]) if not pd.isna(df_row[col]) else ''
+        #                 val = '' if val.strip().lower() == 'nan' else val
+        #                 try:
+        #                     raw += val.ljust(item._columnWidths[col_idx])
+        #                 except IndexError:
+        #                     raw += val
+        #             item.rows.append(raw)
+        #         item.rows.append(raw)
+        #     reduced_tables[item.name] = optimized_table
+        #     global_or_mapping[item.name] = or_mapping
+
+        # return reduced_tables, global_or_mapping
 
     def EqualTokensDetector(self):
 
