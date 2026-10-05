@@ -34,6 +34,7 @@
     filas que estén separadas por una de ellas.
 """
 
+import os
 import re
 import random
 from collections import Counter, defaultdict
@@ -253,6 +254,10 @@ class PrnFile:
         self.orCount = Counter()
         self.newOrs = []        # [(nombre, valores)] creados por el optimizador
         self.removedOrs = set()
+        self.globalOrs = set()  # nombres que vienen de GLOBALS.PRN (no se escriben aquí)
+        # nombre -> [(índice en preamble, valores)], una entrada por cada línea DEFINE OR.
+        self.orLines = defaultdict(list)
+        self.removedLines = set()   # índices de preamble que no se escriben
 
         if path is not None:
             self.read(path)
@@ -306,7 +311,7 @@ class PrnFile:
 
     def _parseDefinitions(self):
 
-        for line in self.preamble:
+        for index, line in enumerate(self.preamble):
 
             if line.startswith("DEFINE DELIMITER"):
                 chars = line[len("DEFINE DELIMITER"):].strip()
@@ -323,6 +328,27 @@ class PrnFile:
                 name = name.strip()
                 self.ors[name] = [v.strip() for v in values.rstrip().split(self.listDelimiter)]
                 self.orCount[name] += 1
+                self.orLines[name].append((index, self.ors[name]))
+
+    # -----------------------------------------------------------------------------------------------
+
+    def addGlobalOrs(self, globalPrn):
+
+        # Los ORs de GLOBALS.PRN se pueden usar en cualquier archivo del proyecto. Sin ellos,
+        # una celda como "Y" (global: Y;YN) se trataría como el literal "Y".
+        # Si el archivo define un OR local con el mismo nombre, se usa el local.
+        for name, values in globalPrn.ors.items():
+            if name not in self.ors:
+                self.ors[name] = list(values)
+                self.orCount[name] = globalPrn.orCount[name]
+                self.globalOrs.add(name)
+
+    def shadowedGlobalOrs(self, globalPrn):
+
+        # ORs locales con el mismo nombre que un OR global pero con otros valores.
+        return sorted(name for name in globalPrn.ors
+                      if name in self.ors and name not in self.globalOrs
+                      and set(self.ors[name]) != set(globalPrn.ors[name]))
 
     # -----------------------------------------------------------------------------------------------
 
@@ -344,7 +370,9 @@ class PrnFile:
     def write(self, path):
 
         lines = []
-        for line in self.preamble:
+        for index, line in enumerate(self.preamble):
+            if index in self.removedLines:
+                continue
             if line.startswith("DEFINE OR:"):
                 name = line[len("DEFINE OR:"):].partition("=")[0].strip()
                 if name in self.removedOrs:
@@ -374,9 +402,12 @@ class PrnOptimizer:
 
     def __init__(self, prn, skipTables=(), mergeDataTypes=("ALPHA",), optimizePickAll=True,
                  removeDuplicateRules=True, removeUnusedOrs=False, maxOrNameLength=40,
-                 searchWindow=400):
+                 searchWindow=400, maxOrValues=50):
 
         self.prn = prn
+        # Máximo de valores en un OR creado por una fusión. Al llegar al límite se empieza
+        # otro bloque (otra regla con otro OR) en vez de seguir creciendo el mismo OR.
+        self.maxOrValues = maxOrValues
         # Distancia máxima (en reglas) para buscar reglas relacionadas no consecutivas.
         self.searchWindow = searchWindow
         self._condCache = {}
@@ -419,7 +450,8 @@ class PrnOptimizer:
             del self.prn.ors[name]
             del self.prn.orCount[name]
 
-        unused = [name for name in self.prn.ors if usage[name] == 0]
+        unused = [name for name in self.prn.ors
+                  if usage[name] == 0 and name not in self.prn.globalOrs]
         if self.removeUnusedOrs:
             self.prn.removedOrs.update(unused)
 
@@ -429,7 +461,9 @@ class PrnOptimizer:
             "unusedOrs": unused,
             "unusedOrsRemoved": self.removeUnusedOrs,
             "singleUseNewOrs": sum(1 for name, _ in self.prn.newOrs if usage[name] == 1),
-            "duplicateOrNames": [n for n, c in self.prn.orCount.items() if c > 1],
+            "largestNewOr": max((len(v) for _, v in self.prn.newOrs), default=0),
+            "duplicateOrNames": [n for n, c in self.prn.orCount.items()
+                                 if c > 1 and n not in self.prn.globalOrs],
         }
 
     # -----------------------------------------------------------------------------------------------
@@ -643,7 +677,10 @@ class PrnOptimizer:
 
             for p in members[1:]:
 
-                ok = p - anchor <= self.searchWindow and all(
+                values = list(dict.fromkeys(self._valuesOf(rules[anchor].cells[col]) +
+                                            self._valuesOf(rules[p].cells[col])))
+
+                ok = len(values) <= self.maxOrValues and p - anchor <= self.searchWindow and all(
                     q in removed or (not rules[q].locked and
                                      (outs[q] == outs[p] or self._disjoint(conds[q], conds[p])))
                     for q in range(anchor + 1, p))
@@ -652,8 +689,6 @@ class PrnOptimizer:
                     anchor = p
                     continue
 
-                values = list(dict.fromkeys(self._valuesOf(rules[anchor].cells[col]) +
-                                            self._valuesOf(rules[p].cells[col])))
                 cell = values[0] if len(values) == 1 else self._orFor(values, table.columns[col])
 
                 rules[anchor].cells[col] = cell
@@ -734,7 +769,8 @@ class PrnOptimizer:
                     sameRest = keyWithout(group[0]) == keyWithout(row)
                     # En PICK ALL un valor repetido daría dos resultados; no se fusiona.
                     repeated = pickAll and row.cells[col] in {g.cells[col] for g in group}
-                    if not sameRest or repeated:
+                    full = len({g.cells[col] for g in group} | {row.cells[col]}) > self.maxOrValues
+                    if not sameRest or repeated or full:
                         flush()
 
                 group.append(row)
@@ -797,6 +833,277 @@ class PrnOptimizer:
             name = f"{base}_{n}"
 
         return name
+
+# ===================================================================================================
+
+class OrConsolidator:
+
+    """
+        Deja una sola definición de cada OR repetido, en GLOBALS.PRN:
+
+        1. Un OR definido dos veces en el mismo archivo con los mismos valores -> se borra la copia.
+        2. OR local con el mismo nombre y valores que un OR global -> se borra del PRN.
+        3. OR local con los mismos valores que un OR global de otro nombre -> sus celdas pasan a
+           usar el nombre global y se borra del PRN.
+        4. OR local cuyos valores están definidos en 2 o más archivos del proyecto -> se agrega
+           una sola vez a GLOBALS.PRN y se borra de los PRN (las celdas usan ese nombre).
+
+        No se toca, solo se reporta: un OR local con el mismo nombre que uno global pero otros
+        valores, o un nombre definido varias veces en un archivo con valores distintos.
+
+        Un OR global nuevo nunca usa un nombre que otro archivo del proyecto tenga en una celda
+        sin definirlo como OR (ahí es un literal y cambiaría de significado), ni un nombre que
+        otro archivo defina con otros valores.
+
+        Solo se renombran celdas en columnas INPUT de tablas alineadas; si el nombre aparece en
+        otra columna, el OR local se conserva.
+    """
+
+    def __init__(self, globalPrn, files, otherFiles=None):
+
+        # files: {nombre: PrnFile} que se pueden modificar (con addGlobalOrs aplicado).
+        # otherFiles: {nombre: PrnFile} del proyecto que solo se revisan.
+        self.globalPrn = globalPrn
+        self.files = files
+        self.otherFiles = otherFiles or {}
+        self.allFiles = {**self.otherFiles, **self.files}
+
+        self.globalSets = {name: frozenset(v) for name, v in globalPrn.ors.items()}
+        self.globalBySet = {}
+        for name, values in self.globalSets.items():
+            self.globalBySet.setdefault(values, name)
+
+        self._cellTexts = {}
+        self._otherDefs = {}
+        self.log = {name: defaultdict(list) for name in files}
+        self.newGlobals = []
+
+    # -----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def _cellName(cell):
+        return cell[2:].strip() if cell.startswith("<>") else cell
+
+    def _localDefs(self, prn):
+
+        # {nombre: frozenset} de los ORs definidos en este archivo con un solo conjunto de
+        # valores, y el conjunto de nombres definidos con valores distintos.
+        defs, inconsistent = {}, set()
+        for name, entries in prn.orLines.items():
+            if name in prn.removedOrs:
+                continue
+            sets = {frozenset(values) for index, values in entries if index not in prn.removedLines}
+            if len(sets) == 1:
+                defs[name] = sets.pop()
+            elif sets:
+                inconsistent.add(name)
+        for name, values in prn.newOrs:
+            defs[name] = frozenset(values)
+        return defs, inconsistent
+
+    def _cells(self, prn):
+
+        # Índice texto de celda (sin "<>") -> [(tabla, fila, columna)], sin la columna
+        # Description. Se arma una vez por archivo y se actualiza al renombrar.
+        key = id(prn)
+        if key not in self._cellTexts:
+            index = defaultdict(list)
+            for table in prn.tables:
+                for row in table.rows:
+                    if row.cells is not None:
+                        for col in range(1, len(row.cells)):
+                            index[self._cellName(row.cells[col])].append((table, row, col))
+            self._cellTexts[key] = index
+        return self._cellTexts[key]
+
+    def _occurrences(self, prn, name):
+        return self._cells(prn).get(name, [])
+
+    def _defsOf(self, fileName, prn):
+
+        # Los archivos que no se modifican se calculan una sola vez.
+        if fileName in self.files:
+            return self._localDefs(prn)
+        if fileName not in self._otherDefs:
+            self._otherDefs[fileName] = self._localDefs(prn)
+        return self._otherDefs[fileName]
+
+    # -----------------------------------------------------------------------------------------------
+
+    def _drop(self, prn, name):
+
+        prn.removedOrs.add(name)
+        prn.newOrs = [(n, v) for n, v in prn.newOrs if n != name]
+        if name in self.globalSets:
+            prn.ors[name] = list(self.globalPrn.ors[name])
+            prn.orCount[name] = 1
+            prn.globalOrs.add(name)
+        else:
+            prn.ors.pop(name, None)
+            prn.orCount.pop(name, None)
+
+    def _rename(self, prn, old, new):
+
+        # Devuelve False (sin cambiar nada) si alguna celda no se puede renombrar con certeza.
+        places = self._occurrences(prn, old)
+        if any(table.io[col] != "INPUT" or table.misaligned for table, _, col in places):
+            return False
+
+        for table, row, col in places:
+            row.cells[col] = "<>" + new if row.cells[col].startswith("<>") else new
+            row.dirty = True
+
+        self._drop(prn, old)
+        if new not in prn.ors:
+            prn.ors[new] = list(self.globalPrn.ors[new])
+            prn.orCount[new] = 1
+            prn.globalOrs.add(new)
+        index = self._cells(prn)
+        if places:
+            index[new].extend(index.pop(old))
+        return True
+
+    # -----------------------------------------------------------------------------------------------
+
+    def _canBeGlobal(self, name, values):
+
+        if name in self.globalSets:
+            return False
+        if any(self.globalPrn.listDelimiter in v for v in values):
+            return False
+        for fileName, prn in self.allFiles.items():
+            defs, inconsistent = self._defsOf(fileName, prn)
+            if name in inconsistent:
+                return False
+            if name in defs:
+                if defs[name] != values:
+                    return False
+            elif name in self._cells(prn) or name in prn.ors and name not in prn.globalOrs:
+                return False
+        return True
+
+    def _uniqueName(self, base):
+
+        n = 1
+        while True:
+            name = f"{base}_G{n}"
+            if name not in self.globalSets and all(
+                    name not in prn.ors and name not in self._cells(prn)
+                    for prn in self.allFiles.values()):
+                return name
+            n += 1
+
+    def _addGlobal(self, name, values):
+
+        self.globalPrn.newOrs.append((name, list(values)))
+        self.globalPrn.ors[name] = list(values)
+        self.globalPrn.orCount[name] = 1
+        self.globalSets[name] = frozenset(values)
+        self.globalBySet.setdefault(frozenset(values), name)
+        self.newGlobals.append((name, list(values)))
+
+    def _removeGlobal(self, name):
+
+        values = self.globalSets.pop(name)
+        self.globalPrn.newOrs = [(n, v) for n, v in self.globalPrn.newOrs if n != name]
+        self.newGlobals = [(n, v) for n, v in self.newGlobals if n != name]
+        del self.globalPrn.ors[name]
+        del self.globalPrn.orCount[name]
+        if self.globalBySet.get(values) == name:
+            del self.globalBySet[values]
+
+    def _otherSets(self, fileName, prn):
+
+        key = ("sets", fileName)
+        if key not in self._otherDefs:
+            self._otherDefs[key] = set(self._defsOf(fileName, prn)[0].values())
+        return self._otherDefs[key]
+
+    # -----------------------------------------------------------------------------------------------
+
+    def run(self):
+
+        candidates = defaultdict(list)     # frozenset -> [(archivo, nombre, valores)]
+
+        for fileName, prn in self.files.items():
+
+            log = self.log[fileName]
+
+            # 1. Copias exactas dentro del mismo archivo.
+            for name, entries in prn.orLines.items():
+                if len(entries) > 1:
+                    if len({frozenset(v) for _, v in entries}) == 1:
+                        prn.removedLines.update(index for index, _ in entries[1:])
+                        log["duplicateLinesRemoved"].append(name)
+                    else:
+                        log["conflictInFile"].append(name)
+
+            defs, _ = self._localDefs(prn)
+            ordered = {name: list(prn.ors[name]) for name in defs}
+            made = {name for name, _ in prn.newOrs}     # creados por PrnOptimizer
+
+            for name, values in defs.items():
+
+                if name in self.globalSets:
+                    # 2. Mismo nombre que un global.
+                    if self.globalSets[name] == values:
+                        self._drop(prn, name)
+                        log["sameAsGlobal"].append(name)
+                    else:
+                        log["conflictWithGlobal"].append(name)
+
+                elif values in self.globalBySet:
+                    # 3. Mismos valores que un global con otro nombre.
+                    target = self.globalBySet[values]
+                    if target not in defs or defs[target] == values:
+                        if self._rename(prn, name, target):
+                            log["renamedToGlobal"].append((name, target))
+                            continue
+                    log["kept"].append(name)
+
+                else:
+                    candidates[values].append((fileName, name, ordered[name], name in made))
+
+        # 4. Conjuntos de valores definidos en 2 o más archivos del proyecto.
+        for values, owners in candidates.items():
+
+            filesWithSet = {o[0] for o in owners}
+            for otherName, prn in self.otherFiles.items():
+                if values in self._otherSets(otherName, prn):
+                    filesWithSet.add(otherName)
+            if len(filesWithSet) < 2:
+                continue
+
+            # Nombre del OR global: primero los nombres escritos por una persona (no los que
+            # creó el optimizador), luego el más usado.
+            names = Counter(o[1] for o in owners)
+            handWritten = {o[1] for o in owners if not o[3]}
+            first = [o[1] for o in owners]
+            order = sorted(names, key=lambda n: (n not in handWritten, -names[n], first.index(n)))
+            globalName = next((n for n in order if self._canBeGlobal(n, values)), None)
+            if globalName is None:
+                globalName = self._uniqueName(order[0])
+
+            source = next(o for o in owners if o[1] == order[0])
+            self._addGlobal(globalName, source[2])
+
+            moved = 0
+            for fileName, name, _, _ in owners:
+                prn = self.files[fileName]
+                if name == globalName:
+                    self._drop(prn, name)
+                elif not self._rename(prn, name, globalName):
+                    self.log[fileName]["kept"].append(name)
+                    continue
+                self.log[fileName]["movedToGlobals"].append((name, globalName))
+                moved += 1
+
+            # Si ningún archivo seleccionado lo pudo usar, el OR global nuevo sobra.
+            if not moved:
+                self._removeGlobal(globalName)
+
+        return {"newGlobals": self.newGlobals,
+                "files": {name: dict(log) for name, log in self.log.items()}}
 
 # ===================================================================================================
 
@@ -1041,10 +1348,11 @@ def findInlineLists(prn):
     # Una celda INPUT no puede tener una lista "A;B;C": la lista debe declararse como
     # DEFINE OR y la celda debe usar el nombre del OR. Las celdas OUTPUT sí pueden tener
     # listas (p. ej. "@NEMA - Freedom;Soft Starter" es un valor devuelto, no una condición).
+    # Las filas D no se evalúan, así que no se revisan. Las líneas son del archivo revisado.
     found = []
     for table in prn.tables:
         for row in table.rows:
-            if row.cells is None:
+            if row.kind not in (RULE, CONTINUATION):
                 continue
             for col in table.inputColumns:
                 if prn.listDelimiter in row.cells[col]:
@@ -1054,24 +1362,36 @@ def findInlineLists(prn):
 
 # ===================================================================================================
 
-def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, **options):
+def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, globalsPath=None, **options):
 
     """
         Lee inputPath, optimiza, escribe outputPath, vuelve a leer el archivo escrito y
         verifica cada tabla contra la original. Devuelve (resultado, texto del reporte).
+        globalsPath: GLOBALS.PRN del proyecto; sus ORs se usan al optimizar y al verificar
+        pero no se escriben en outputPath.
         options se pasa a PrnOptimizer (skipTables, optimizePickAll, removeUnusedOrs, ...).
     """
 
-    prn = PrnFile(inputPath)
+    globalPrn = PrnFile(globalsPath) if globalsPath else None
+
+    def load(path):
+        prn = PrnFile(path)
+        if globalPrn is not None:
+            prn.addGlobalOrs(globalPrn)
+        return prn
+
+    prn = load(inputPath)
     result = PrnOptimizer(prn, **options).run()
     prn.write(outputPath)
 
+    result["globalsPath"] = globalsPath
+    result["shadowedGlobalOrs"] = prn.shadowedGlobalOrs(globalPrn) if globalPrn else []
     result["inlineLists"] = findInlineLists(PrnFile(outputPath))
 
     result["verification"] = []
     if verify:
-        original = PrnFile(inputPath)
-        written = PrnFile(outputPath)
+        original = load(inputPath)
+        written = load(outputPath)
         if len(original.tables) != len(written.tables):
             raise RuntimeError("El archivo escrito no tiene el mismo número de tablas")
         for a, b in zip(original.tables, written.tables):
@@ -1087,9 +1407,110 @@ def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, **options):
 
 # -----------------------------------------------------------------------------------------------
 
+def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), consolidate=True,
+                    verify=True, progress=None, **options):
+
+    """
+        Optimiza varios PRN del mismo proyecto y escribe los resultados en outputDir.
+
+        globalsPath: GLOBALS.PRN del proyecto. Sus ORs se usan al optimizar y al verificar.
+        consolidate: deja los ORs repetidos una sola vez en GLOBALS.PRN (OrConsolidator). El
+                     GLOBALS.PRN nuevo se escribe en outputDir; el original no se toca.
+        projectPaths: los demás PRN del proyecto. No se modifican, pero se revisan para que un
+                      OR global nuevo no cambie el significado de sus celdas.
+        progress(etapa, archivo): opcional, para mostrar avance.
+
+        Cada archivo se verifica contra su original: original + GLOBALS.PRN original contra
+        salida + GLOBALS.PRN nuevo.
+
+        Devuelve {"files": {ruta: resultado}, "globalsOut": ruta o None, "newGlobals": [...]}.
+        Si un archivo falla, su resultado tiene "error" y los demás continúan.
+    """
+
+    progress = progress or (lambda stage, name: None)
+    globalPrn = PrnFile(globalsPath) if globalsPath else None
+
+    def load(path, globalsFile=globalPrn):
+        prn = PrnFile(path)
+        if globalsFile is not None:
+            prn.addGlobalOrs(globalsFile)
+        return prn
+
+    results, prns = {}, {}
+    for path in inputPaths:
+        name = os.path.basename(path)
+        progress("optimize", name)
+        try:
+            prn = load(path)
+            results[path] = PrnOptimizer(prn, **options).run()
+            results[path]["globalsPath"] = globalsPath
+            prns[path] = prn
+        except Exception as error:
+            results[path] = {"error": f"{type(error).__name__}: {error}"}
+
+    newGlobals, globalsOut = [], None
+    if globalPrn is not None and consolidate and prns:
+        progress("consolidate", os.path.basename(globalsPath))
+        selected = {os.path.normcase(os.path.abspath(p)) for p in inputPaths}
+        others = {os.path.basename(p): PrnFile(p) for p in projectPaths
+                  if os.path.normcase(os.path.abspath(p)) not in selected}
+        consolidation = OrConsolidator(
+            globalPrn, {os.path.basename(p): prn for p, prn in prns.items()}, others).run()
+        newGlobals = consolidation["newGlobals"]
+        for path in prns:
+            results[path]["consolidation"] = consolidation["files"][os.path.basename(path)]
+
+    for path, prn in prns.items():
+        results[path]["shadowedGlobalOrs"] = prn.shadowedGlobalOrs(globalPrn) if globalPrn else []
+        prn.write(os.path.join(outputDir, os.path.basename(path)))
+
+    newGlobalPrn = globalPrn
+    if newGlobals:
+        globalsOut = os.path.join(outputDir, os.path.basename(globalsPath))
+        globalPrn.write(globalsOut)
+        newGlobalPrn = PrnFile(globalsOut)
+
+    for path in prns:
+        name = os.path.basename(path)
+        outputPath = os.path.join(outputDir, name)
+        result = results[path]
+        result["globalsOut"] = globalsOut
+        result["inlineLists"] = findInlineLists(PrnFile(outputPath))
+        result["verification"] = []
+        try:
+            if verify:
+                progress("verify", name)
+                original = load(path, PrnFile(globalsPath) if globalsPath else None)
+                written = load(outputPath, newGlobalPrn)
+                if len(original.tables) != len(written.tables):
+                    raise RuntimeError("El archivo escrito no tiene el mismo número de tablas")
+                for a, b in zip(original.tables, written.tables):
+                    tests, mismatches = verifyTable(a, b, original.ors, written.ors)
+                    result["verification"].append((a.index, tests, mismatches))
+        except Exception as error:
+            result["error"] = f"{type(error).__name__}: {error}"
+
+        with open(outputPath + ".report.txt", "w", encoding="utf-8") as fh:
+            fh.write(formatReport(path, outputPath, result))
+
+    return {"files": results, "globalsOut": globalsOut, "newGlobals": newGlobals}
+
+# -----------------------------------------------------------------------------------------------
+
+def _describeOr(item):
+
+    # "nombre" o ("viejo", "nuevo") -> texto para el reporte.
+    if isinstance(item, tuple):
+        old, new = item
+        return old if old == new else f"{old} -> {new}"
+    return item
+
 def formatReport(inputPath, outputPath, result):
 
-    out = [f"Entrada: {inputPath}", f"Salida:  {outputPath}", ""]
+    out = [f"Entrada: {inputPath}", f"Salida:  {outputPath}"]
+    if result.get("globalsPath"):
+        out.append(f"Globales: {result['globalsPath']}")
+    out.append("")
     out.append(f"{'#':>3}  {'Tabla':<28} {'Tipo':<9} {'Línea':>6} {'Antes':>7} {'Después':>8} "
                f"{'Fusiones':>8} {'Duplic.':>7}  Nota")
 
@@ -1108,14 +1529,39 @@ def formatReport(inputPath, outputPath, result):
     out.append(f"\nReglas R: {totalBefore} -> {totalAfter}  ({reduction:.1f}% menos)")
 
     out.append(f"\nORs nuevos: {len(result['newOrs'])} "
-               f"({result['singleUseNewOrs']} se usan en una sola regla)")
+               f"({result['singleUseNewOrs']} se usan en una sola regla, "
+               f"el más grande tiene {result.get('largestNewOr', 0)} valores)")
     for name, values in result["newOrs"]:
         out.append(f"  {name} = {';'.join(values)}")
+
+    consolidation = result.get("consolidation")
+    if consolidation is not None:
+        out.append(f"\nORs repetidos (GLOBALS.PRN nuevo: {result.get('globalsOut') or 'sin cambios'}):")
+        sections = [
+            ("duplicateLinesRemoved", "copias exactas en este archivo, borradas"),
+            ("sameAsGlobal", "iguales a un OR global (mismo nombre y valores), borrados de aquí"),
+            ("renamedToGlobal", "mismos valores que un OR global de otro nombre, celdas renombradas"),
+            ("movedToGlobals", "repetidos en otros archivos, movidos a GLOBALS.PRN"),
+            ("kept", "se conservan como locales (el nombre global se redefine en este archivo, "
+                     "o el OR aparece fuera de columnas INPUT)"),
+            ("conflictWithGlobal", "REVISAR: mismo nombre que un OR global, otros valores (no se tocó)"),
+            ("conflictInFile", "REVISAR: definidos varias veces aquí con valores distintos (no se tocó)"),
+        ]
+        for key, label in sections:
+            items = consolidation.get(key, [])
+            if not items:
+                continue
+            out.append(f"  {len(items)} {label}:")
+            out.append("    " + ", ".join(_describeOr(item) for item in items))
 
     action = "eliminados" if result["unusedOrsRemoved"] else "no eliminados"
     out.append(f"\nORs sin uso en este archivo ({action}): {len(result['unusedOrs'])}")
     if result["unusedOrs"]:
         out.append("  " + ", ".join(result["unusedOrs"]))
+
+    if result.get("shadowedGlobalOrs"):
+        out.append(f"\nAVISO: ORs locales con el mismo nombre que un OR global pero otros valores "
+                   f"(se usó el local): {', '.join(result['shadowedGlobalOrs'])}")
 
     if result["duplicateOrNames"]:
         out.append(f"\nAVISO: ORs definidos más de una vez: {', '.join(result['duplicateOrNames'])}")
@@ -1125,7 +1571,7 @@ def formatReport(inputPath, outputPath, result):
         out.append(f"\nERROR: {len(inline)} celdas INPUT con una lista en vez de un OR "
                    f"(declarar la lista con DEFINE OR y usar su nombre):")
         for index, name, line, column, cell in inline[:50]:
-            out.append(f"  tabla {index} ({name}): línea {line}, columna {column}: {cell}")
+            out.append(f"  tabla {index} ({name}): línea {line} de la salida, columna {column}: {cell}")
         if len(inline) > 50:
             out.append(f"  ... y {len(inline) - 50} más")
 
