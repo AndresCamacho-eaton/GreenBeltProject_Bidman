@@ -4,7 +4,9 @@
     Ejecutar desde la carpeta Code:  python -m unittest test_BidManMaintenanceToolsV1_4_0 -v
 """
 
+import contextlib
 import glob
+import io
 import os
 import tempfile
 import unittest
@@ -65,8 +67,10 @@ class PrnTestCase(unittest.TestCase):
 class TestRoundTrip(PrnTestCase):
 
     def test_real_files_round_trip_byte_for_byte(self):
+        # Los PRN de prueba (datos de producto) no están en el repositorio; solo en local.
         files = sorted(glob.glob(os.path.join(PRNS, "INPUTS*")))
-        self.assertTrue(files)
+        if not files:
+            self.skipTest(f"no hay PRNs INPUTS* en {PRNS}")
         for source in files:
             with self.subTest(file=os.path.basename(source)):
                 target = self.path("rt.prn")
@@ -309,6 +313,25 @@ class TestOptimization(PrnTestCase):
         self.assertEqual(len(prn.tables[0].ruleRows), 2)
         self.assertIsNotNone(result["tables"][0]["skipped"])
 
+    def test_skip_tables_ignores_case(self):
+        result, prn = self.optimize(makeTable([
+            ("R", "F1", "2", "", "A"),
+            ("R", "F1", "3", "", "A"),
+        ]), skipTables=["TBL"])
+        self.assertEqual(len(prn.tables[0].ruleRows), 2)
+        self.assertEqual(result["tables"][0]["skipped"], "tabla excluida")
+
+    def test_output_values_keep_their_exact_text(self):
+        # Listas de ATTR_PICK y "@" (valor por defecto) en OUTPUT no se tocan al fusionar.
+        result, prn = self.optimize(makeTable([
+            ("R", "F1", "2", "", "@A;B"),
+            ("R", "F2", "2", "", "@A;B"),
+            ("R", "F3", "2", "", "C;@D"),
+        ]))
+        self.assertEqual([r[-1] for r in self.rules(prn)], ["@A;B", "C;@D"])
+        self.assertEqual(result["changedOutputs"], [])
+        self.assertEqual(result["inlineLists"], [])
+
     def test_large_merges_are_split_in_blocks(self):
         rows = [("R", "F1", str(p), "", "A") for p in range(1, 6)]
         result, prn = self.optimize(makeTable(rows), maxOrValues=2)
@@ -403,16 +426,29 @@ class TestConsolidation(PrnTestCase):
         self.assertEqual(written["a.prn"].ors["Solo"], ["P", "Q"])
 
     def test_new_global_never_takes_a_name_used_as_literal_elsewhere(self):
-        # En c.prn "Rep" es un literal; si "Rep" fuera global, c.prn cambiaría.
-        project, written, globalsOut, _ = self.project({
+        # En c.prn "Rep" es un literal; si "Rep" fuera global, c.prn cambiaría. No se inventa
+        # otro nombre: los ORs se quedan locales.
+        project, written, globalsOut, results = self.project({
             "a.prn": prnText(["Rep=P;Q"], [("R", "Rep", "1", "", "X")]),
             "b.prn": prnText(["Rep=P;Q"], [("R", "Rep", "2", "", "Y")]),
             "c.prn": prnText([], [("R", "Rep", "3", "", "Z")]),
         }, ["G1=A;B"], selected=["a.prn", "b.prn"])
         self.assertNotIn("Rep", globalsOut.ors)
-        [(name, values)] = project["newGlobals"]
-        self.assertEqual(values, ["P", "Q"])
-        self.assertEqual(self.rules(written["a.prn"]), [[name, "1", "", "X"]])
+        self.assertEqual(project["newGlobals"], [])
+        self.assertEqual(written["a.prn"].ors["Rep"], ["P", "Q"])
+        self.assertEqual(self.rules(written["a.prn"]), [["Rep", "1", "", "X"]])
+        self.assertEqual(results["a.prn"]["consolidation"]["notGlobal"], ["Rep"])
+
+    def test_optimizer_made_ors_do_not_move_to_globals(self):
+        # b.prn y c.prn generan el mismo OR al fusionar, sin nombre escrito por una persona.
+        project, written, _, _ = self.project({
+            "b.prn": prnText([], [("R", "F1", "1", "", "A"), ("R", "F1", "2", "", "A")]),
+            "c.prn": prnText([], [("R", "F1", "1", "", "A"), ("R", "F1", "2", "", "A")]),
+        }, ["G1=A;B"])
+        self.assertEqual(project["newGlobals"], [])
+        for name in ("b.prn", "c.prn"):
+            [rule] = self.rules(written[name])
+            self.assertEqual(written[name].ors[rule[1]], ["1", "2"])
 
     def test_same_name_different_values_is_left_alone(self):
         _, written, globalsOut, results = self.project(
@@ -427,11 +463,37 @@ class TestConsolidation(PrnTestCase):
             ["G1=A;B"])
         self.assertEqual(written["a.prn"].orCount["Solo"], 1)
 
-    def test_or_used_in_output_column_is_not_renamed(self):
+    def test_output_cell_with_an_or_name_is_a_literal_and_is_not_renamed(self):
+        # Un OUTPUT nunca usa un OR: "Loc" ahí es un valor devuelto. Se renombra solo el INPUT.
         _, written, _, results = self.project(
             {"a.prn": prnText(["Loc=A;B"], [("R", "Loc", "1", "", "Loc")])}, ["G1=A;B"])
-        self.assertEqual(written["a.prn"].ors["Loc"], ["A", "B"])
+        self.assertNotIn("Loc", written["a.prn"].ors)
+        self.assertEqual(self.rules(written["a.prn"]), [["G1", "1", "", "Loc"]])
+        self.assertEqual(results["a.prn"]["consolidation"]["renamedToGlobal"], [("Loc", "G1")])
+        self.assertEqual(results["a.prn"]["changedOutputs"], [])
+
+    def test_excluded_table_is_never_renamed(self):
+        # "Loc" tiene los valores de G1, pero la tabla está excluida: no se toca y Loc queda local.
+        text = prnText(["Loc=B;A"], [("R", "Loc", "1", "", "X")])
+        _, written, _, results = self.project({"a.prn": text}, ["G1=A;B"], skipTables=["TBL"])
+        self.assertEqual(self.rules(written["a.prn"]), [["Loc", "1", "", "X"]])
+        self.assertEqual(written["a.prn"].ors["Loc"], ["B", "A"])
         self.assertEqual(results["a.prn"]["consolidation"]["kept"], ["Loc"])
+
+    def test_table_progress_is_reported_for_every_table(self):
+        calls = []
+        self.project({"a.prn": prnText([], [("R", "F1", "1", "", "X")])}, ["G1=A;B"],
+                     tableProgress=lambda *args: calls.append(args))
+        self.assertEqual(calls, [("optimize", 1, 1, "tbl"), ("verify", 1, 1, "tbl")])
+
+    def test_or_name_as_output_literal_elsewhere_does_not_block_a_global(self):
+        project, written, globalsOut, _ = self.project({
+            "a.prn": prnText(["Rep=P;Q"], [("R", "Rep", "1", "", "X")]),
+            "b.prn": prnText(["Rep=P;Q"], [("R", "Rep", "2", "", "Y")]),
+            "c.prn": prnText([], [("R", "F1", "3", "", "Rep")]),
+        }, ["G1=A;B"], selected=["a.prn", "b.prn"])
+        self.assertEqual(project["newGlobals"], [("Rep", ["P", "Q"])])
+        self.assertNotIn("Rep", written["a.prn"].ors)
 
 # ===================================================================================================
 
@@ -456,6 +518,25 @@ class TestVerifier(PrnTestCase):
         _, mismatches = BMMT.verifyTable(original.tables[0], bad.tables[0], original.ors, bad.ors)
         self.assertTrue(mismatches)
 
+    def test_changed_output_value_is_detected(self):
+        original = self.load("a.prn", makeTable([("R", "F1", "2", "", "@A;B")]))
+        changed = self.load("b.prn", makeTable([("R", "F1", "2", "", "A;B")]))
+        self.assertEqual(BMMT.changedOutputs(original.tables[0], original.tables[0]), [])
+        self.assertEqual(BMMT.changedOutputs(original.tables[0], changed.tables[0]),
+                         [(7, "R", ("A;B",))])
+
+    def test_copied_file_is_checked_against_the_new_globals(self):
+        # "Rep" es un literal en c.prn; si GLOBALS.PRN nuevo lo definiera como OR, c.prn cambiaría.
+        c = self.path("c.prn")
+        self.load("c.prn", prnText([], [("R", "Rep", "1", "", "X"), ("R", "", "", "", "Z")]))
+        self.load("old.PRN", prnText(["G1=A;B"], []))
+        self.load("same.PRN", prnText(["G1=A;B", "Other=P;Q"], []))
+        self.load("bad.PRN", prnText(["G1=A;B", "Rep=P;Q"], []))
+        _, mismatches = BMMT.verifyWithNewGlobals(c, self.path("old.PRN"), self.path("same.PRN"))
+        self.assertEqual(mismatches, [])
+        _, mismatches = BMMT.verifyWithNewGlobals(c, self.path("old.PRN"), self.path("bad.PRN"))
+        self.assertTrue(mismatches)
+
     def test_verifier_detects_priority_change(self):
         original = self.load("a.prn", makeTable([
             ("R", "F1", "2", "", "A"),
@@ -474,7 +555,10 @@ class TestVerifier(PrnTestCase):
 class TestRealFiles(PrnTestCase):
 
     def test_real_files_optimize_without_behavior_change(self):
-        for source in sorted(glob.glob(os.path.join(PRNS, "INPUTS*"))):
+        files = sorted(glob.glob(os.path.join(PRNS, "INPUTS*")))
+        if not files:
+            self.skipTest(f"no hay PRNs INPUTS* en {PRNS}")
+        for source in files:
             with self.subTest(file=os.path.basename(source)):
                 result, report = BMMT.optimizePrn(source, self.path("out.prn"))
                 for index, tests, mismatches in result["verification"]:
@@ -506,6 +590,110 @@ class TestMenu(unittest.TestCase):
         self.assertIsNone(menu.parseSelection("6", 5))
         self.assertIsNone(menu.parseSelection("x", 5))
         self.assertIsNone(menu.parseSelection("", 5))
+
+    def test_default_excluded_files_ignore_case(self):
+        import OptimizePrnMenu as menu
+        with tempfile.TemporaryDirectory() as folder:
+            for name in ("a.prn", "pluginframework.PRN", "ReEval.prn", "GLOBALS.PRN"):
+                with open(os.path.join(folder, name), "w") as fh:
+                    fh.write("")
+            original, menu.ask = menu.ask, lambda prompt, default="": "all"
+            try:
+                # chooseFiles imprime la lista de archivos; no debe ensuciar la salida de las pruebas.
+                with contextlib.redirect_stdout(io.StringIO()):
+                    files, _, project, skipped = menu.chooseFiles(folder)
+            finally:
+                menu.ask = original
+            self.assertEqual([os.path.basename(f) for f in files], ["a.prn"])
+            self.assertEqual(skipped, ["pluginframework.PRN", "ReEval.prn"])
+            # Siguen en el proyecto para que los ORs globales nuevos no los afecten.
+            self.assertEqual(len(project), 3)
+
+    def test_unoptimized_files_and_pik_are_copied_unchanged(self):
+        import OptimizePrnMenu as menu
+        with tempfile.TemporaryDirectory() as folder, tempfile.TemporaryDirectory() as out:
+            texts = {"a.prn": makeTable([("R", "F1", "2", "", "A")]),
+                     "b.PRN": makeTable([("R", "F2", "2", "", "B")]),
+                     "c.prn": makeTable([("R", "F3", "2", "", "C")]),
+                     "ENCLOSC.PIK": "pik data\r\n",
+                     "Translations.XML": "<xml/>\r\n",
+                     "notes.txt": "not copied\r\n"}
+            for name, text in texts.items():
+                with open(os.path.join(folder, name), "w", encoding="latin-1", newline="") as fh:
+                    fh.write(text)
+            paths = [os.path.join(folder, n) for n in ("a.prn", "b.PRN", "c.prn")]
+            # a.prn se optimizó bien, c.prn falló, b.PRN no se eligió.
+            with contextlib.redirect_stdout(io.StringIO()):
+                copied = menu.copyUnoptimized(folder, out, paths, [paths[0], paths[2]], [paths[2]],
+                                              None, None)
+            self.assertEqual(copied, [("b.PRN", None), ("c.prn", None), ("ENCLOSC.PIK", None),
+                                      ("Translations.XML", None)])
+            for name, _ in copied:
+                with open(os.path.join(folder, name), "rb") as a, \
+                     open(os.path.join(out, name), "rb") as b:
+                    self.assertEqual(a.read(), b.read())
+            self.assertFalse(os.path.exists(os.path.join(out, "a.prn")))
+            self.assertFalse(os.path.exists(os.path.join(out, "notes.txt")))
+
+    def test_original_globals_is_copied_when_no_new_one_was_written(self):
+        import OptimizePrnMenu as menu
+        with tempfile.TemporaryDirectory() as folder, tempfile.TemporaryDirectory() as out:
+            globalsPath = os.path.join(folder, "GLOBALS.PRN")
+            with open(globalsPath, "w", encoding="latin-1", newline="") as fh:
+                fh.write(prnText(["G1=A;B"], []))
+            with contextlib.redirect_stdout(io.StringIO()):
+                copied = menu.copyUnoptimized(folder, out, [], [], [], globalsPath, None)
+            self.assertEqual(copied, [("GLOBALS.PRN", None)])
+            with open(globalsPath, "rb") as a, open(os.path.join(out, "GLOBALS.PRN"), "rb") as b:
+                self.assertEqual(a.read(), b.read())
+
+            # Con un GLOBALS.PRN nuevo en la salida, el original no lo reemplaza.
+            newGlobals = os.path.join(out, "GLOBALS.PRN")
+            with open(newGlobals, "w", encoding="latin-1", newline="") as fh:
+                fh.write(prnText(["G1=A;B", "New=P;Q"], []))
+            with contextlib.redirect_stdout(io.StringIO()):
+                copied = menu.copyUnoptimized(folder, out, [], [], [], globalsPath, newGlobals)
+            self.assertEqual(copied, [])
+            self.assertIn("New", BMMT.PrnFile(newGlobals).ors)
+
+    def test_welcome_art_is_colored_ascii(self):
+        import re
+        import OptimizePrnMenu as menu
+        lines = menu.welcomeLines("\n>_< ==\nab\n", "\nggg ww\n", color=True)
+        green, white = "\033[38;2;61;245;140m", "\033[38;2;238;242;245m"
+        self.assertEqual(lines, [green + ">_<" + "\033[0m " + white + "==\033[0m",
+                                 "ab    "])
+        # Sin color: el mismo dibujo en texto plano, todas las líneas del mismo ancho.
+        self.assertEqual(menu.welcomeLines("\n>_< ==\nab\n", "", color=False), [">_< ==", "ab    "])
+
+        # El dibujo real: solo ASCII, y cada carácter visible tiene color en COLORS.
+        from welcome_art import ART, COLORS
+        art, colors = ART.strip("\n").split("\n"), COLORS.strip("\n").split("\n")
+        self.assertEqual(len(art), len(colors))
+        self.assertTrue(ART.isascii())
+        for line, mask in zip(art, colors):
+            for x, ch in enumerate(line):
+                if ch != " ":
+                    self.assertIn(mask[x:x + 1], menu.ART_COLORS, f"sin color: {line!r} col {x}")
+        plain = [re.sub("\033\\[[0-9;]*m", "", l) for l in menu.welcomeLines(ART, COLORS)]
+        self.assertEqual(plain, menu.welcomeLines(ART, COLORS, color=False))
+
+    def test_live_line_rewrites_in_place_and_clears(self):
+        import OptimizePrnMenu as menu
+        live = menu.LiveLine()
+        live.enabled = True
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            live.show("working on table LongName 1/2")
+            live.show("working on table T 2/2")
+            live.clear()
+        text = buffer.getvalue()
+        self.assertNotIn("\n", text)
+        self.assertTrue(text.endswith("\r"))
+        # La segunda línea, más corta, tapa con espacios lo que quedaba de la primera.
+        second = text.split("\r")[2]
+        self.assertTrue(second.endswith(" " * (len("working on table LongName 1/2") -
+                                               len("working on table T 2/2"))))
 
 # ===================================================================================================
 

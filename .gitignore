@@ -1,9 +1,39 @@
-Code/__pycache__/*
+# --- Python --------------------------------------------------------------------------------------
+__pycache__/
+*.pyc
+venv/
+
+# --- App build (rebuild with: .\venv\Scripts\python.exe Code\build_exe.py) ----------------------
+build/
+dist/
+*.spec
+
+# --- Optimizer output (generated on every run) -----------------------------------------------
+**/optimized/
+**/testOpt*/
+*.FAILED
+*.report.txt
+summary.txt
+
+# --- Real product data (stays local) ----------------------------------------------------------
+ENCLOSC_PRNS/
+*.prn
+*.PRN
+*.pik
+*.PIK
+
+# --- Old tool versions not kept in the repo -----------------------------------------------------
 Code/BidManMaintenanceTools.py
 Code/BidManMaintenanceToolsV1_1_0-Copy.txt
 Code/BidManMaintenanceToolsV1_1_0.py
 Code/BidManMaintenanceToolsV1_2_0.py
-#ENCLOSC_PRNS/*
-#!ENCLOSC_PRNS/inputsproofofconcept.prn
-#!ENCLOSC_PRNS/inputsproofofconcept2.prn
-venv/
+
+# --- Personal notes -------------------------------------------------------------------------------
+SESSION_HANDOFF.md
+.claude/
+
+# --- Office / Windows / OneDrive junk -----------------------------------------------------------
+~$*
+Thumbs.db
+desktop.ini
+*.tmp

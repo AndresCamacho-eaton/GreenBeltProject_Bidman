@@ -37,7 +37,14 @@
 import os
 import re
 import random
+import time
 from collections import Counter, defaultdict
+
+try:
+    # Autor y versión de la app (app_info.py): primera línea de cada reporte.
+    from app_info import SIGNATURE
+except ImportError:
+    SIGNATURE = "BidManMaintenanceToolsV1_4_0"
 
 RULE = "R"
 DISABLED = "D"
@@ -91,6 +98,8 @@ class Table:
         self.dataTypes = [self._slice(dataTypeLine, i).upper() for i in range(len(self.columns))]
         self.rows = []
         self.misaligned = 0
+        # excluded = el usuario pidió no tocar esta tabla (skipTables): ni optimizar ni renombrar.
+        self.excluded = False
 
     # -----------------------------------------------------------------------------------------------
 
@@ -336,7 +345,9 @@ class PrnFile:
 
         # Los ORs de GLOBALS.PRN se pueden usar en cualquier archivo del proyecto. Sin ellos,
         # una celda como "Y" (global: Y;YN) se trataría como el literal "Y".
-        # Si el archivo define un OR local con el mismo nombre, se usa el local.
+        # BidMan busca primero en el archivo y después en GLOBALS.PRN: si el archivo define un OR
+        # con el mismo nombre, se usa el local (confirmado). No se recomienda repetir un nombre
+        # global en un archivo, así que el optimizador nunca crea uno.
         for name, values in globalPrn.ors.items():
             if name not in self.ors:
                 self.ors[name] = list(values)
@@ -354,12 +365,14 @@ class PrnFile:
 
     def orUsage(self):
 
+        # Solo las columnas INPUT usan ORs; en OUTPUT el texto es un valor literal.
         usage = Counter()
         for table in self.tables:
             for row in table.rows:
                 if row.cells is None:
                     continue
-                for cell in row.cells:
+                for col in table.inputColumns:
+                    cell = row.cells[col]
                     name = cell[2:].strip() if cell.startswith("<>") else cell
                     if name in self.ors:
                         usage[name] += 1
@@ -402,16 +415,19 @@ class PrnOptimizer:
 
     def __init__(self, prn, skipTables=(), mergeDataTypes=("ALPHA",), optimizePickAll=True,
                  removeDuplicateRules=True, removeUnusedOrs=False, maxOrNameLength=40,
-                 searchWindow=400, maxOrValues=50):
+                 searchWindow=400, maxOrValues=50, onTable=None):
 
         self.prn = prn
         # Máximo de valores en un OR creado por una fusión. Al llegar al límite se empieza
         # otro bloque (otra regla con otro OR) en vez de seguir creciendo el mismo OR.
         self.maxOrValues = maxOrValues
+        # onTable(i, total, nombre): opcional, se llama antes de optimizar cada tabla.
+        self.onTable = onTable or (lambda i, total, name: None)
         # Distancia máxima (en reglas) para buscar reglas relacionadas no consecutivas.
         self.searchWindow = searchWindow
         self._condCache = {}
-        self.skipTables = set(skipTables)
+        # Nombres de tabla (sin distinguir mayúsculas) o índices de tabla que no se tocan.
+        self.skipTables = {s.lower() if isinstance(s, str) else s for s in skipTables}
         self.mergeDataTypes = set(t.upper() for t in mergeDataTypes)
         self.optimizePickAll = optimizePickAll
         self.removeDuplicateRules = removeDuplicateRules
@@ -439,7 +455,10 @@ class PrnOptimizer:
 
     def run(self):
 
-        tables = [self._optimizeTable(table) for table in self.prn.tables]
+        tables = []
+        for i, table in enumerate(self.prn.tables, 1):
+            self.onTable(i, len(self.prn.tables), table.name)
+            tables.append(self._optimizeTable(table))
 
         # Las fusiones van creando ORs intermedios (A;B, luego A;B;C, ...). Solo se
         # conservan los ORs nuevos que quedaron en uso.
@@ -485,8 +504,9 @@ class PrnOptimizer:
 
         pickAll = table.typeOfTable == "PICK ALL"
 
-        if table.name in self.skipTables or table.index in self.skipTables:
-            info["skipped"] = "en la lista skipTables"
+        if table.name.lower() in self.skipTables or table.index in self.skipTables:
+            info["skipped"] = "tabla excluida"
+            table.excluded = True
         elif table.typeOfTable not in ("PICK ONE", "PICK ALL"):
             info["skipped"] = f"tipo de tabla desconocido: {table.typeOfTable!r}"
         elif table.misaligned:
@@ -851,12 +871,15 @@ class OrConsolidator:
         No se toca, solo se reporta: un OR local con el mismo nombre que uno global pero otros
         valores, o un nombre definido varias veces en un archivo con valores distintos.
 
-        Un OR global nuevo nunca usa un nombre que otro archivo del proyecto tenga en una celda
-        sin definirlo como OR (ahí es un literal y cambiaría de significado), ni un nombre que
-        otro archivo defina con otros valores.
+        Un OR global nuevo siempre lleva un nombre escrito por una persona (los ORs que creó el
+        optimizador no pasan a GLOBALS.PRN por sí solos), y nunca un nombre que otro archivo del
+        proyecto tenga en una celda sin definirlo como OR (ahí es un literal y cambiaría de
+        significado), ni un nombre que otro archivo defina con otros valores. Si ningún nombre
+        sirve, los ORs se quedan locales.
 
-        Solo se renombran celdas en columnas INPUT de tablas alineadas; si el nombre aparece en
-        otra columna, el OR local se conserva.
+        Solo se renombran celdas en columnas INPUT de tablas alineadas y no excluidas (si el OR
+        se usa en una tabla no alineada o excluida, se conserva local). Las celdas OUTPUT nunca se tocan: un OUTPUT no
+        puede referirse a un OR, así que un texto igual a un nombre de OR ahí es un valor literal.
     """
 
     def __init__(self, globalPrn, files, otherFiles=None):
@@ -903,15 +926,21 @@ class OrConsolidator:
 
     def _cells(self, prn):
 
-        # Índice texto de celda (sin "<>") -> [(tabla, fila, columna)], sin la columna
-        # Description. Se arma una vez por archivo y se actualiza al renombrar.
+        # Índice texto de celda (sin "<>") -> [(tabla, fila, columna)] de las celdas que pueden
+        # usar un OR: solo columnas INPUT. Una celda OUTPUT nunca es un OR (es un valor devuelto
+        # tal cual, aunque coincida con un nombre de OR), así que no se indexa ni se renombra.
+        # En tablas no alineadas (el corte no es confiable) y en tablas excluidas (no se tocan)
+        # se indexan todas las columnas para que _rename las rechace. Se arma una vez por
+        # archivo y se actualiza al renombrar.
         key = id(prn)
         if key not in self._cellTexts:
             index = defaultdict(list)
             for table in prn.tables:
+                frozen = table.misaligned or table.excluded
+                columns = range(1, len(table.columns)) if frozen else table.inputColumns
                 for row in table.rows:
                     if row.cells is not None:
-                        for col in range(1, len(row.cells)):
+                        for col in columns:
                             index[self._cellName(row.cells[col])].append((table, row, col))
             self._cellTexts[key] = index
         return self._cellTexts[key]
@@ -946,7 +975,8 @@ class OrConsolidator:
 
         # Devuelve False (sin cambiar nada) si alguna celda no se puede renombrar con certeza.
         places = self._occurrences(prn, old)
-        if any(table.io[col] != "INPUT" or table.misaligned for table, _, col in places):
+        if any(table.io[col] != "INPUT" or table.misaligned or table.excluded
+               for table, _, col in places):
             return False
 
         for table, row, col in places:
@@ -981,17 +1011,6 @@ class OrConsolidator:
             elif name in self._cells(prn) or name in prn.ors and name not in prn.globalOrs:
                 return False
         return True
-
-    def _uniqueName(self, base):
-
-        n = 1
-        while True:
-            name = f"{base}_G{n}"
-            if name not in self.globalSets and all(
-                    name not in prn.ors and name not in self._cells(prn)
-                    for prn in self.allFiles.values()):
-                return name
-            n += 1
 
     def _addGlobal(self, name, values):
 
@@ -1074,17 +1093,18 @@ class OrConsolidator:
             if len(filesWithSet) < 2:
                 continue
 
-            # Nombre del OR global: primero los nombres escritos por una persona (no los que
-            # creó el optimizador), luego el más usado.
-            names = Counter(o[1] for o in owners)
-            handWritten = {o[1] for o in owners if not o[3]}
+            # Nombre del OR global: solo un nombre escrito por una persona (no los que creó el
+            # optimizador), el más usado. Si ninguno sirve, los ORs se quedan locales.
+            names = Counter(o[1] for o in owners if not o[3])
             first = [o[1] for o in owners]
-            order = sorted(names, key=lambda n: (n not in handWritten, -names[n], first.index(n)))
+            order = sorted(names, key=lambda n: (-names[n], first.index(n)))
             globalName = next((n for n in order if self._canBeGlobal(n, values)), None)
             if globalName is None:
-                globalName = self._uniqueName(order[0])
+                for fileName, name, _, _ in owners:
+                    self.log[fileName]["notGlobal"].append(name)
+                continue
 
-            source = next(o for o in owners if o[1] == order[0])
+            source = next(o for o in owners if o[1] == globalName)
             self._addGlobal(globalName, source[2])
 
             moved = 0
@@ -1343,6 +1363,27 @@ def verifyTable(original, optimized, originalOrs, optimizedOrs, randomTests=2000
 
 # ===================================================================================================
 
+def changedOutputs(original, written):
+
+    """
+        Las celdas OUTPUT no se pueden modificar: deben quedar con el mismo texto y la misma
+        sintaxis (listas "a;b" de atributos ATTR_PICK, "@" del valor por defecto, etc.).
+        Devuelve las filas R/D de la tabla escrita cuya salida (celdas OUTPUT + continuaciones)
+        no existe tal cual en una fila del mismo tipo de la tabla original:
+        [(línea de la salida, tipo de fila, salida)].
+    """
+
+    def outputOf(table, row):
+        return tuple(row.cells[c] for c in table.outputColumns) + \
+               tuple(tuple(cont.cells) for cont in row.continuation)
+
+    before = {(row.kind, outputOf(original, row)) for row in original.rows
+              if row.kind in (RULE, DISABLED)}
+    return [(row.lineNumbers[0], row.kind, outputOf(written, row)) for row in written.rows
+            if row.kind in (RULE, DISABLED) and (row.kind, outputOf(written, row)) not in before]
+
+# ===================================================================================================
+
 def findInlineLists(prn):
 
     # Una celda INPUT no puede tener una lista "A;B;C": la lista debe declararse como
@@ -1389,6 +1430,7 @@ def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, globalsPath
     result["inlineLists"] = findInlineLists(PrnFile(outputPath))
 
     result["verification"] = []
+    result["changedOutputs"] = []
     if verify:
         original = load(inputPath)
         written = load(outputPath)
@@ -1397,6 +1439,7 @@ def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, globalsPath
         for a, b in zip(original.tables, written.tables):
             tests, mismatches = verifyTable(a, b, original.ors, written.ors)
             result["verification"].append((a.index, tests, mismatches))
+            result["changedOutputs"] += [(a.index, *c) for c in changedOutputs(a, b)]
 
     report = formatReport(inputPath, outputPath, result)
     if reportPath:
@@ -1408,7 +1451,7 @@ def optimizePrn(inputPath, outputPath, reportPath=None, verify=True, globalsPath
 # -----------------------------------------------------------------------------------------------
 
 def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), consolidate=True,
-                    verify=True, progress=None, **options):
+                    verify=True, progress=None, tableProgress=None, **options):
 
     """
         Optimiza varios PRN del mismo proyecto y escribe los resultados en outputDir.
@@ -1419,6 +1462,8 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
         projectPaths: los demás PRN del proyecto. No se modifican, pero se revisan para que un
                       OR global nuevo no cambie el significado de sus celdas.
         progress(etapa, archivo): opcional, para mostrar avance.
+        tableProgress(etapa, i, total, tabla): opcional, se llama antes de optimizar o verificar
+                      cada tabla (etapa "optimize" o "verify", i de 1 a total).
 
         Cada archivo se verifica contra su original: original + GLOBALS.PRN original contra
         salida + GLOBALS.PRN nuevo.
@@ -1428,6 +1473,7 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
     """
 
     progress = progress or (lambda stage, name: None)
+    tableProgress = tableProgress or (lambda stage, i, total, table: None)
     globalPrn = PrnFile(globalsPath) if globalsPath else None
 
     def load(path, globalsFile=globalPrn):
@@ -1442,7 +1488,8 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
         progress("optimize", name)
         try:
             prn = load(path)
-            results[path] = PrnOptimizer(prn, **options).run()
+            onTable = lambda i, total, table: tableProgress("optimize", i, total, table)
+            results[path] = PrnOptimizer(prn, onTable=onTable, **options).run()
             results[path]["globalsPath"] = globalsPath
             prns[path] = prn
         except Exception as error:
@@ -1477,6 +1524,7 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
         result["globalsOut"] = globalsOut
         result["inlineLists"] = findInlineLists(PrnFile(outputPath))
         result["verification"] = []
+        result["changedOutputs"] = []
         try:
             if verify:
                 progress("verify", name)
@@ -1484,9 +1532,12 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
                 written = load(outputPath, newGlobalPrn)
                 if len(original.tables) != len(written.tables):
                     raise RuntimeError("El archivo escrito no tiene el mismo número de tablas")
-                for a, b in zip(original.tables, written.tables):
+                total = len(original.tables)
+                for i, (a, b) in enumerate(zip(original.tables, written.tables), 1):
+                    tableProgress("verify", i, total, a.name)
                     tests, mismatches = verifyTable(a, b, original.ors, written.ors)
                     result["verification"].append((a.index, tests, mismatches))
+                    result["changedOutputs"] += [(a.index, *c) for c in changedOutputs(a, b)]
         except Exception as error:
             result["error"] = f"{type(error).__name__}: {error}"
 
@@ -1494,6 +1545,27 @@ def optimizeProject(inputPaths, outputDir, globalsPath=None, projectPaths=(), co
             fh.write(formatReport(path, outputPath, result))
 
     return {"files": results, "globalsOut": globalsOut, "newGlobals": newGlobals}
+
+# -----------------------------------------------------------------------------------------------
+
+def verifyWithNewGlobals(path, globalsPath, newGlobalsPath, randomTests=500):
+
+    """
+        Un PRN que se copia sin optimizar se usa junto con el GLOBALS.PRN nuevo. Compara cada
+        tabla del archivo con los ORs globales originales contra el mismo archivo con los ORs
+        globales nuevos. Devuelve (número de pruebas, [(tabla, entrada, antes, después)]).
+    """
+
+    before, after = PrnFile(path), PrnFile(path)
+    before.addGlobalOrs(PrnFile(globalsPath))
+    after.addGlobalOrs(PrnFile(newGlobalsPath))
+
+    total, mismatches = 0, []
+    for a, b in zip(before.tables, after.tables):
+        tests, found = verifyTable(a, b, before.ors, after.ors, randomTests=randomTests)
+        total += tests
+        mismatches += [(a.index, *m) for m in found]
+    return total, mismatches
 
 # -----------------------------------------------------------------------------------------------
 
@@ -1507,7 +1579,8 @@ def _describeOr(item):
 
 def formatReport(inputPath, outputPath, result):
 
-    out = [f"Entrada: {inputPath}", f"Salida:  {outputPath}"]
+    out = [f"{SIGNATURE} - {time.strftime('%Y-%m-%d %H:%M')}", "",
+           f"Entrada: {inputPath}", f"Salida:  {outputPath}"]
     if result.get("globalsPath"):
         out.append(f"Globales: {result['globalsPath']}")
     out.append("")
@@ -1543,8 +1616,11 @@ def formatReport(inputPath, outputPath, result):
             ("renamedToGlobal", "mismos valores que un OR global de otro nombre, celdas renombradas"),
             ("movedToGlobals", "repetidos en otros archivos, movidos a GLOBALS.PRN"),
             ("kept", "se conservan como locales (el nombre global se redefine en este archivo, "
-                     "o el OR aparece fuera de columnas INPUT)"),
-            ("conflictWithGlobal", "REVISAR: mismo nombre que un OR global, otros valores (no se tocó)"),
+                     "o el OR se usa en una tabla no alineada o excluida)"),
+            ("notGlobal", "repetidos en otros archivos pero se conservan como locales (ningún "
+                          "nombre escrito por una persona sirve como nombre global)"),
+            ("conflictWithGlobal", "REVISAR: mismo nombre que un OR global, otros valores (BidMan usa el "
+                                   "local; no se recomienda repetir un nombre global, no se tocó)"),
             ("conflictInFile", "REVISAR: definidos varias veces aquí con valores distintos (no se tocó)"),
         ]
         for key, label in sections:
@@ -1561,7 +1637,7 @@ def formatReport(inputPath, outputPath, result):
 
     if result.get("shadowedGlobalOrs"):
         out.append(f"\nAVISO: ORs locales con el mismo nombre que un OR global pero otros valores "
-                   f"(se usó el local): {', '.join(result['shadowedGlobalOrs'])}")
+                   f"(BidMan usa el local; no se recomienda repetir un nombre global): {', '.join(result['shadowedGlobalOrs'])}")
 
     if result["duplicateOrNames"]:
         out.append(f"\nAVISO: ORs definidos más de una vez: {', '.join(result['duplicateOrNames'])}")
@@ -1574,6 +1650,15 @@ def formatReport(inputPath, outputPath, result):
             out.append(f"  tabla {index} ({name}): línea {line} de la salida, columna {column}: {cell}")
         if len(inline) > 50:
             out.append(f"  ... y {len(inline) - 50} más")
+
+    changed = result.get("changedOutputs", [])
+    if changed:
+        out.append(f"\nERROR: {len(changed)} filas con celdas OUTPUT modificadas (los valores OUTPUT "
+                   f"deben quedar exactamente igual):")
+        for index, line, kind, output in changed[:50]:
+            out.append(f"  tabla {index}: línea {line} de la salida ({kind}): {output}")
+        if len(changed) > 50:
+            out.append(f"  ... y {len(changed) - 50} más")
 
     dead = [(t, d) for t in result["tables"] for d in t["deadRules"]]
     if dead:
