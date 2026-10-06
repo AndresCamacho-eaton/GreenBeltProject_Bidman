@@ -1,6 +1,7 @@
 
 import pandas as pd
-import re
+import re, json, time
+from collections import defaultdict
 
 """
     Como primer paso el algoritmo debe ser capaz de detectar subconjuntos de renglones en donde al menos tres columnas tengan
@@ -157,6 +158,7 @@ class Table:
         self._typeOfTable = None
         self._typeOfColumn = None
         self._dataType = None
+        self._columnWidths = []
         self._columns = []
         self._rows = []
         
@@ -175,7 +177,11 @@ class Table:
     @property
     def dataType(self):
         return self._dataType            
-    
+
+    @property
+    def columnWidths(self):
+        return self._columnWidths
+
     @property
     def columns(self):
         return self._columns
@@ -200,6 +206,10 @@ class Table:
     def dataType(self, dataType):
         self._dataType = dataType                        
 
+    @columnWidths.setter
+    def columnWidths(self, columnWidths):
+        self._columnWidths = columnWidths
+
     @columns.setter
     def columns(self, columns):
         self._columns = columns
@@ -219,6 +229,7 @@ class Table:
             string = string.partition(delimiter)
                             
             tokens.append(string[0])
+            tokens.append(" ")
             
             string = string[2]
         
@@ -259,6 +270,8 @@ class Table:
         elif keyword == "HEADING":
 
             columns = ""
+
+            print(f"rowValues: {rowValues}")
             
             for value in rowValues:
                 
@@ -266,13 +279,51 @@ class Table:
                     continue
 
                 columns = value
+
+                print(f"columns: {columns}")
             
             # --- for value in rowValues: -------------------------------------------------------------------
 
             columns = self.Tokenizer(columns, ' ')
 
+            print(f"columns: {columns[2:]}")
+
+            isWord = False
+            lengthOfBlanks = 0
+            lengthOfWord = 0
+            firstWord = True
+
+            for t in columns[2:]:
+
+                if t == '':
+
+                    lengthOfBlanks += 1
+                    isWord = False
+                
+                else:
+
+                    lengthOfWord = len(t)
+                    isWord = True
+
+                if isWord:
+
+                    print(f"lengthOfBlanks: {lengthOfBlanks}, lengthOfWords: {lengthOfWord}")
+                    if firstWord:
+                    
+                        width = lengthOfWord
+                    
+                    else:
+                    
+                        width = lengthOfBlanks + lengthOfWord
+                    
+                    self.columnWidths.append(width)
+                    lengthOfBlanks = 0
+                    firstWord = False
+
             self.columns = columns[2:]
-        
+
+            print(f"columnWidths: {self.columnWidths}")
+
         elif keyword == "I/O":
 
             typesOfColumn = ""
@@ -328,7 +379,10 @@ class Table:
             """
             rules = self.Tokenizer(strRow, " ")
 
-            self.name = rules[1].lstrip()
+            copyOfRules = rules.copy()
+            copyOfRules = [item for item in copyOfRules if item != '' and item != ' ']
+
+            self.name = copyOfRules[1].lstrip()
 
             self.rows.append(rules)
      
@@ -355,7 +409,6 @@ class Table:
 # ===================================================================================================
 
 class PrnDoctor:
-
     def __init__(self, file):
 
         self._pathAndNameOfTheFile = file
@@ -536,7 +589,6 @@ class PrnDoctor:
                 tbl.ReadTable(row, delimeters, row.iloc[0][0])
 
             # --- if row.iloc[0].startswith("TYPE"): ------------------------------------------------
-
     # --- def read(self): ---------------------------------------------------------------------------
 
     def OptimizationOne(self):
@@ -545,7 +597,104 @@ class PrnDoctor:
             This method is intended to optimize the logical rules and tables.
             The optimization process will be implemented in future versions.
         """
-        pass
+
+        print('Enters')
+        self.ReadPRN()
+        """
+            1. Count longitud of typeOfColumn
+            2. Count numbers of times that INPUT string appears
+            3. Multiply number of times INPUT appears times 5
+            4. Add this result to longitud typeOfColumn
+            5. Substract 6 of total longitud to know OUTPUT index
+        """
+
+        def words_to_letters(words_list, table_name, get_pos):
+            letters_list = []
+            pos_found = 0
+
+            for word in words_list:
+                if word == table_name and get_pos:
+                    pos_found = len(letters_list) + 8
+                    continue
+
+                letters_list.extend(list(word) if word else [''])
+
+            return {"posFound": pos_found, "values": letters_list}
+
+
+        for table in self.tables:
+            print(f"\n\n\n=======================  TABLE: {table.name}   ==================================\n\n\n")
+
+            arr_table_cols = [el for el in table.columns if el]
+            pos_output_col = words_to_letters(arr_table_cols, table.name, True)["posFound"]
+
+            outputs = []
+            value_counts = {}
+
+            for index, row in enumerate(table.rows):
+                row_split = words_to_letters(row, table.name, False)["values"]
+                row_split = list(filter(None, row_split))
+
+                if len(row_split) > pos_output_col:
+                    output_value = "".join(row_split[pos_output_col:])
+                    value_counts[output_value] = value_counts.get(output_value, 0) + 1
+                    outputs.append({"rowIndex": index, "value": output_value, "row": row})
+
+            outputs = [item for item in outputs if value_counts[item["value"]] > 1]
+            # print(outputs)
+            
+            print("\n\n\n==================== START COMPARING ====================\n\n\n")
+
+            # * Create a dictionary where each key maps to a list.
+            grouped = defaultdict(list)
+
+            # * Each item is expected to be a dictionary with a 'value' key.
+            for item in outputs:
+                grouped[item['value']].append(item)
+
+            # * Find groups that have more than one item
+            repeated_groups = [group for group in grouped.values() if len(group) > 1]
+
+            # * If there are any repeated groups
+            if len(repeated_groups) > 0:
+                # * Enumerate through each repeated group
+                for i, group in enumerate(repeated_groups, start=1):
+                    # print(f"\nRepeated Group {i}:\n")
+                    # * For each item in the group, extract and clean the corresponding row.
+                    for item in group:
+                        # * Access the row in the table using the item's 'rowIndex'.
+                        rowIndex = table.rows[item["rowIndex"]]
+                        
+                        # * Remove empty strings and spaces from the row.
+                        rowIndex = [el for el in rowIndex if el != '']
+                        # print(rowIndex)
+                    
+                    # * Dynamically create a global variable to store the group.
+                    globals()[f'repeated{i}'] = group
+            
+            print(group)
+            # for repeated in group:
+            #     splitedOutputValue = repeated["value"].split()
+            #     row = repeated["row"]
+            #     row = [el for el in row if el != '']
+            #     currentRowIndex = repeated[]
+                
+            #     counterEqualities = 0
+            #     for index, itemRow in enumerate(row):
+            #         if (index + 1) < len(group):
+            #             nextRow = group[index + 1]["row"]
+            #             nextRow = [el for el in nextRow if el != '']
+                        
+            #             print(f"Current Row: {row[57]}")
+            #             print(f"Next Row: {nextRow[57]}")
+                    # print(len(itemRow))
+                    # if(itemRow == row[index + 1])                    
+
+
+ 
+
+
+
 
     def WritePRN(self, fileName):
 

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="A runner with a terminal window for a head, sprinting">
+  <rect width="512" height="512" rx="116" fill="#10151C"/>
+  <rect x="1" y="1" width="510" height="510" rx="115" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+
+  <ellipse cx="245" cy="470" rx="112" ry="10" fill="#000000" fill-opacity="0.4"/>
+
+  <g fill="none" stroke="#3DF58C" stroke-width="11" stroke-linecap="round">
+    <line x1="44" y1="196" x2="92" y2="196"/>
+    <line x1="114" y1="196" x2="150" y2="196"/>
+    <line x1="72" y1="246" x2="158" y2="246"/>
+    <line x1="36" y1="298" x2="112" y2="298"/>
+  </g>
+
+  <g fill="none" stroke="#AEB8C4" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="272,262 208,268 188,322"/>
+    <polyline points="240,335 190,400 118,388"/>
+  </g>
+  <rect x="69" y="356" width="66" height="32" rx="16" transform="rotate(-65 102 372)" fill="#E09A1A"/>
+
+  <line x1="276" y1="250" x2="240" y2="335" stroke="#EEF2F5" stroke-width="38" stroke-linecap="round"/>
+
+  <g fill="none" stroke="#EEF2F5" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="240,335 312,352 352,418"/>
+    <polyline points="272,262 324,312 374,280"/>
+  </g>
+  <rect x="337" y="410" width="70" height="32" rx="16" transform="rotate(-18 372 426)" fill="#FFB020"/>
+
+  <g transform="rotate(8 290 240)">
+    <rect x="195" y="98" width="190" height="142" rx="24" fill="#EEF2F5"/>
+    <circle cx="217" cy="116" r="5.5" fill="#10151C"/>
+    <circle cx="236" cy="116" r="5.5" fill="#10151C"/>
+    <circle cx="255" cy="116" r="5.5" fill="#10151C"/>
+    <rect x="209" y="132" width="162" height="94" rx="12" fill="#10151C"/>
+    <g fill="none" stroke="#3DF58C" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="236,160 262,179 236,198"/>
+      <polyline points="344,160 318,179 344,198"/>
+      <line x1="277" y1="203" x2="303" y2="203"/>
+    </g>
+  </g>
+
+  <g fill="#EEF2F5">
+    <path d="M0,-13 C6,-4 8,2 8,6 A8,8 0 1 1 -8,6 C-8,2 -6,-4 0,-13 Z" transform="translate(170 128) rotate(62)"/>
+    <path d="M0,-13 C6,-4 8,2 8,6 A8,8 0 1 1 -8,6 C-8,2 -6,-4 0,-13 Z" transform="translate(148 98) rotate(62) scale(0.65)"/>
+  </g>
+</svg>

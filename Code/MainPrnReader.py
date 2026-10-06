@@ -1,61 +1,49 @@
-#import BidManMaintenanceToolsV1.1.0 as BMMT
+#import BidManMaintenanceToolsV1_3_1 as BMMT
+#import BidManMaintenanceToolsV1_3_2 as BMMT
+#import BidManMaintenanceToolsV1_3_3 as BMMT
 
-#import BidManMaintenanceToolsV1_2_0 as BMMT
+import os
+import sys
 
-import BidManMaintenanceToolsV1_2_1 as BMMT
-
-workingFile = \
-BMMT.PrnDoctor("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-               "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept.prn")
-
-"""
-    TO DO:
-
-    La solución desarrollada para la clase LogicalRules funciona con el archivo de entrada
-    inputsproofofconcept pero no con el archivo inputs. [Resuelto]
+import BidManMaintenanceToolsV1_4_0 as BMMT
 
 """
+    Uso:
+        python MainPrnReader.py                         (usa los archivos por defecto de abajo)
+        python MainPrnReader.py entrada.prn salida.prn
 
-#print(workingFile.pathAndNameOfTheFile)
+    Escribe el PRN optimizado, un reporte <salida>.report.txt, y verifica cada tabla
+    contra la original. No modifica el archivo de entrada.
+"""
 
-workingFile.ReadPRN()
+HERE = os.path.dirname(os.path.abspath(__file__))
+PRNS = os.path.join(HERE, "..", "ENCLOSC_PRNS", "PRNS")
 
-#print(workingFile.getDelimiters)
-#print(workingFile.logicalRules)
+inputPath = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PRNS, "INPUTSProofOfConcept.prn")
+outputPath = sys.argv[2] if len(sys.argv) > 2 else os.path.join(PRNS, "optimized_output3.prn")
 
-#c = 0
-#for lr in workingFile.logicalRules:
+print('Reading, optimizing and verifying PRN file . . .')
 
-#    print(lr.variableName)
-#    print(lr.type)
-#    print(lr.listOfValues)
-#    print("------------------------------")
-#    c += 1
+result, report = BMMT.optimizePrn(
+    inputPath,
+    outputPath,
+    reportPath=outputPath + ".report.txt",
+    skipTables=[],              # nombres (Description) o índices de tablas a no tocar
+    optimizePickAll=True,       # en PICK ALL solo se fusionan valores distintos
+    removeDuplicateRules=True,  # PICK ONE: borra reglas idénticas a una regla anterior
+    removeUnusedOrs=False,      # pendiente confirmar si los ORs se usan desde otros archivos
+)
 
-    #print(lr.variableName)
-    #print(lr.type)
-    #print(lr.listOfValues)
+print(report)
 
-#print(c)
+failed = [index for index, _, mismatches in result["verification"] if mismatches]
+if failed:
+    print(f'VERIFICATION FAILED in tables {failed}. Do not use {outputPath}.')
+    sys.exit(1)
 
-#c = 0
-#for tbl in workingFile.tables:
+if result["inlineLists"]:
+    print(f'{len(result["inlineLists"])} INPUT cells have a value;value list instead of an OR. '
+          f'Do not use {outputPath}.')
+    sys.exit(1)
 
-#    print(tbl.typeOfTable)
-#    print(tbl.columns)
-#    print(tbl.typeOfColumn)
-#    print(tbl.dataType)
-#    print(tbl.name)
-    #print(tbl.rows)
-    #for r in tbl.rows:
-    #    print(r)
-    #print("\n")
-
-#    c += 1
-
-#print(c)
-
-#050625
-
-workingFile.WritePRN("C:\\Users\\E0803344\\OneDrive - Eaton\\Documents\\JavierCamacho\\" + \
-                     "ENCLOSC_PRNS\\PRNS\\inputsproofofconcept_out.prn")
+print('Done!')
